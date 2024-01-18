@@ -3,10 +3,14 @@ package Erpegkraj.Efekty.efekty;
 import Erpegkraj.Efekty.Efekty;
 import Erpegkraj.PanelGry;
 
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.HashMap;
+
 public class Dozbrojenie extends Efekty {
 
-    public Dozbrojenie(PanelGry gp, int początkowaIlośćRund) {
-        super("Dozbrojenie", gp, początkowaIlośćRund);
+    public Dozbrojenie(PanelGry gp, BufferedImage ikona, int początkowaIlośćRund) throws IOException {
+        super("Dozbrojenie", gp, ikona, początkowaIlośćRund);
     }
 
     @Override

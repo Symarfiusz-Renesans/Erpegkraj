@@ -2,6 +2,7 @@ package Erpegkraj.Postacie;
 
 import Erpegkraj.Efekty.Efekty;
 import Erpegkraj.Grafika.Przerozmierzacz;
+import Erpegkraj.Jednorazówki.Jednorazówki;
 import Erpegkraj.PanelGry;
 
 import javax.imageio.ImageIO;
@@ -82,7 +83,7 @@ public abstract class Postać extends Erpegkraj.Grafika.Grafika implements Przer
         }
     }
     public void dodajEfekt(Efekty efekt, int naIle){
-           if (efekty.get())
+        efekty.putIfAbsent(efekt, naIle);
     }
 
     public void ustawRozmiarGracza(){
@@ -159,7 +160,7 @@ public abstract class Postać extends Erpegkraj.Grafika.Grafika implements Przer
         }
     }
 
-    public void czasDziałaniaEfektów(int jaki){
+    public void czasDziałaniaEfektów(int jaki, Jednorazówki użytyPrzedmiot){
         for (Map.Entry<Efekty, Integer> m : efekty.entrySet()) {
             Efekty klucz = m.getKey();
             int wartość = m.getValue();
@@ -168,13 +169,19 @@ public abstract class Postać extends Erpegkraj.Grafika.Grafika implements Przer
                     klucz.działaniePrzyAtaku();
                     break;
                 case 2:
-                    klucz.działaniePrzyUżyciuPrzedmiotu();
+                    klucz.działaniePrzyUżyciuPrzedmiotu(użytyPrzedmiot);
                     break;
                 case 3:
                     klucz.działanieGdyUpłynieRunda();
                     break;
                 case 4:
                     klucz.działaniePrzedOdebraniemObrażeń();
+                    break;
+                case 5:
+                    klucz.działaniePrzyOtrzymaniu();
+                    break;
+                case 6:
+                    klucz.działaniePrzyWyczerpaniu();
                     break;
             }
             if (wartość != 0) wartość--;
