@@ -1,14 +1,16 @@
 package Erpegkraj.Efekty;
 
+import Erpegkraj.Grafika.Przerozmierzacz;
 import Erpegkraj.Jednorazówki.Jednorazówki;
 import Erpegkraj.PanelGry;
 import Erpegkraj.Postacie.Bohater;
 import Erpegkraj.Postacie.Postać;
 import Erpegkraj.ZarządcaArkuszów;
-
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.nio.Buffer;
 import java.util.ArrayList;
 
@@ -21,11 +23,11 @@ public abstract class Efekty extends Erpegkraj.Grafika.Grafika {
     protected Postać postać;
     public BufferedImage ikona;
 
-    public Efekty(String nazwa, PanelGry gp, BufferedImage ikona, int ilośćRund) throws FileNotFoundException {
+    public Efekty(String nazwa, PanelGry gp, String ikona, int ilośćRund) throws IOException {
         super(0, 0, 0, gp);
         this.nazwa = nazwa;
         this.ilośćRund = ilośćRund;
-        this.ikona = ikona;
+        this.ikona = Przerozmierzacz.przerozmierzanie(ImageIO.read(getClass().getResourceAsStream("/Rysy/"+ikona)),10,10);
     }
 
     public void ustawBohatera(Postać p){

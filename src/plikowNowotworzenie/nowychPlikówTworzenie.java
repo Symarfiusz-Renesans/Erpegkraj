@@ -2,6 +2,7 @@ package plikowNowotworzenie;
 
 import Erpegkraj.ZarządcaArkuszów;
 
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,6 +17,14 @@ public class nowychPlikówTworzenie {
             danePrzedmiotów = new FileInputStream("zasoby/Dane/Dane.xlsx");
             mapa= ZarządcaArkuszów.podzielDaneRóżnychWierszy(ZarządcaArkuszów.przeczytajWierszeArkusza(danePrzedmiotów, "Jednorazówki"));
             przydzielWieleDanychJednorazówek(mapa);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        try {
+            danePrzedmiotów = new FileInputStream("zasoby/Dane/Dane.xlsx");
+            mapa= ZarządcaArkuszów.podzielDaneRóżnychWierszy(ZarządcaArkuszów.przeczytajWierszeArkusza(danePrzedmiotów, "EfektyBitwy"));
+            przydzielWieleDanychEfektów(mapa);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -99,6 +108,72 @@ public class nowychPlikówTworzenie {
             File plik = new File("src/Erpegkraj/Postacie/Bohaterowie/"+klucz+".java");
             plik.createNewFile();
             try(PrintWriter plikuTworzenie = new PrintWriter (new FileOutputStream(plik, false))){
+                plikuTworzenie.print(kod);
+            }
+        }
+    }
+
+    public static void przydzielWieleDanychEfektów(HashMap<String,HashMap<String, String>> mapa) throws IOException {
+
+        for (Map.Entry<String, HashMap<String, String>> m : mapa.entrySet()) {
+            String klucz = m.getKey();
+            HashMap<String, String> wartość = m.getValue();
+
+            String kod = "package Erpegkraj.Efekty.efekty;\n" +
+                    "\n" +
+                    "import Erpegkraj.Efekty.Efekty;\n" +
+                    "import Erpegkraj.PanelGry;\n" +
+                    "\n" +
+                    "import java.awt.image.BufferedImage;\n" +
+                    "import java.io.IOException;\n" +
+                    "import java.util.HashMap;\n"+
+                    "public class "+klucz+" extends Efekty {\n" +
+                    "\n" +
+                    "    public "+klucz+"(PanelGry gp, int początkowaIlośćRund) throws IOException {\n" +
+                    "        super(\""+wartość.get("nazwa")+"\", gp, \""+wartość.get("Ikona")+"\", początkowaIlośćRund);\n" +
+                    "    }\n";
+
+            if (wartość.get("PrzyOtrzymaniu") != null){
+                kod += "@Override\n" +
+                        "public void działaniePrzyOtrzymaniu(){" +
+                        "   "+wartość.get("PrzyOtrzymaniu")+
+                        "}"  ;
+            }
+            if (wartość.get("PrzyWyczerpaniu") != null){
+                kod += "@Override\n" +
+                        "public void działaniePrzyWyczerpaniu(){" +
+                        "   "+wartość.get("PrzyWyczerpaniu")+
+                        "}"  ;
+            }
+            if (wartość.get("PrzyAtaku") != null){
+                kod += "@Override\n" +
+                        "public void działaniePrzyAtaku(){" +
+                        "   "+wartość.get("PrzyPrzyAtaku")+
+                        "}"  ;
+            }
+            if (wartość.get("PrzyUżyciuPrzedmiotu") != null){
+                kod += "@Override\n" +
+                        "public void działaniePrzyUżyciuPrzedmiotu(){" +
+                        "   "+wartość.get("PrzyUżyciuPrzedmiotu")+
+                        "}"  ;
+            }
+            if (wartość.get("GdyUpłynieRunda") != null){
+                kod += "@Override\n" +
+                        "public void działanieGdyUpłynieRunda(){" +
+                        "   "+wartość.get("GdyUpłynieRunda")+
+                        "}"  ;
+            }
+            if (wartość.get("PrzedOdebraniemObrażeń") != null){
+                kod += "@Override\n" +
+                        "public void działaniePrzedOdebraniemObrażeń(){" +
+                        "   "+wartość.get("PrzedOdebraniemObrażeń")+
+                        "}\n"  ;
+            }
+            kod+="}";
+
+            File plik = new File("src/Erpegkraj/Efekty/efekty/" + klucz + ".java");
+            plik.createNewFile();
+            try (PrintWriter plikuTworzenie = new PrintWriter(new FileOutputStream(plik, false))) {
                 plikuTworzenie.print(kod);
             }
         }
