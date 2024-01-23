@@ -82,8 +82,9 @@ public abstract class Postać extends Erpegkraj.Grafika.Grafika implements Przer
             odbiorcaUsługi.otrzymajObrażenia(siłaUlep);
         }
     }
-    public void dodajEfekt(Efekty efekt, int naIle){
-        efekty.putIfAbsent(efekt, naIle);
+    public void dodajEfekt(Efekty jaki, int naIle){
+        jaki.ustawPostać(this);
+        efekty.put(jaki, naIle);
     }
 
     public void ustawRozmiarGracza(){
@@ -159,7 +160,6 @@ public abstract class Postać extends Erpegkraj.Grafika.Grafika implements Przer
             czasZniknięcia.stop();
         }
     }
-
     public void czasDziałaniaEfektów(int jaki, Jednorazówki użytyPrzedmiot){
         for (Map.Entry<Efekty, Integer> m : efekty.entrySet()) {
             Efekty klucz = m.getKey();

@@ -137,31 +137,31 @@ public class nowychPlikówTworzenie {
                 kod += "@Override\n" +
                         "public void działaniePrzyOtrzymaniu(){" +
                         "   "+wartość.get("PrzyOtrzymaniu")+
-                        "}"  ;
+                        "}\n"  ;
             }
             if (wartość.get("PrzyWyczerpaniu") != null){
                 kod += "@Override\n" +
                         "public void działaniePrzyWyczerpaniu(){" +
                         "   "+wartość.get("PrzyWyczerpaniu")+
-                        "}"  ;
+                        "}\n"  ;
             }
             if (wartość.get("PrzyAtaku") != null){
                 kod += "@Override\n" +
                         "public void działaniePrzyAtaku(){" +
                         "   "+wartość.get("PrzyPrzyAtaku")+
-                        "}"  ;
+                        "}\n"  ;
             }
             if (wartość.get("PrzyUżyciuPrzedmiotu") != null){
                 kod += "@Override\n" +
                         "public void działaniePrzyUżyciuPrzedmiotu(){" +
                         "   "+wartość.get("PrzyUżyciuPrzedmiotu")+
-                        "}"  ;
+                        "}\n"  ;
             }
             if (wartość.get("GdyUpłynieRunda") != null){
                 kod += "@Override\n" +
                         "public void działanieGdyUpłynieRunda(){" +
                         "   "+wartość.get("GdyUpłynieRunda")+
-                        "}"  ;
+                        "}\n"  ;
             }
             if (wartość.get("PrzedOdebraniemObrażeń") != null){
                 kod += "@Override\n" +

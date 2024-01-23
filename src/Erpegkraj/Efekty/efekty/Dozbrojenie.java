@@ -12,5 +12,7 @@ public class Dozbrojenie extends Efekty {
         super("null", gp, "efekty/Trutka.png", początkowaIlośćRund);
     }
 @Override
-public void działaniePrzyOtrzymaniu(){   postać.odpornośćUlep = postać.odporność+5}@Override
-public void działaniePrzyWyczerpaniu(){   postać.odpornośćUlep = postać.odporność;}}
+public void działaniePrzyOtrzymaniu(){   postać.odpornośćUlep = postać.odporność+5;}
+@Override
+public void działaniePrzyWyczerpaniu(){   postać.odpornośćUlep = postać.odporność;}
+}

@@ -12,4 +12,5 @@ public class Trucizna extends Efekty {
         super("null", gp, "efekty/Trutka.png", początkowaIlośćRund);
     }
 @Override
-public void działanieGdyUpłynieRunda(){   życie -= 2}}
+public void działanieGdyUpłynieRunda(){   postać.życie-=2;}
+}

@@ -12,5 +12,7 @@ public class Niewidzialność extends Efekty {
         super("null", gp, "efekty/Trutka.png", początkowaIlośćRund);
     }
 @Override
-public void działaniePrzedOdebraniemObrażeń(){   }
+public void działaniePrzyOtrzymaniu(){   postać.unikUlep = 30;}
+@Override
+public void działaniePrzyWyczerpaniu(){   postać.unikUlep = postać.unik;}
 }

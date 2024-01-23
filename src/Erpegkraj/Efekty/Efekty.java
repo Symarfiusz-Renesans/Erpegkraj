@@ -30,7 +30,7 @@ public abstract class Efekty extends Erpegkraj.Grafika.Grafika {
         this.ikona = Przerozmierzacz.przerozmierzanie(ImageIO.read(getClass().getResourceAsStream("/Rysy/"+ikona)),10,10);
     }
 
-    public void ustawBohatera(Postać p){
+    public void ustawPostać(Postać p){
         this.postać = p;
     }
 
