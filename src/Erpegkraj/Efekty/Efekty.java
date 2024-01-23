@@ -17,16 +17,13 @@ import java.util.ArrayList;
 public abstract class Efekty extends Erpegkraj.Grafika.Grafika {
 
     protected FileInputStream daneEfektów = new FileInputStream("zasoby/Dane/Dane.xlsx");
-
-    protected int ilośćRund;
     public String nazwa;
     protected Postać postać;
     public BufferedImage ikona;
 
-    public Efekty(String nazwa, PanelGry gp, String ikona, int ilośćRund) throws IOException {
+    public Efekty(String nazwa, PanelGry gp, String ikona) throws IOException {
         super(0, 0, 0, gp);
         this.nazwa = nazwa;
-        this.ilośćRund = ilośćRund;
         this.ikona = Przerozmierzacz.przerozmierzanie(ImageIO.read(getClass().getResourceAsStream("/Rysy/"+ikona)),10,10);
     }
 
@@ -55,10 +52,10 @@ public abstract class Efekty extends Erpegkraj.Grafika.Grafika {
 
 
     public void ustawIlośćRund(int oIle){
-        ilośćRund+=oIle;
+
     }
     public int ustalIlośćRund(){
-        return ilośćRund;
+        return 0;
     }
 
 

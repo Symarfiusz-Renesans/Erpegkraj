@@ -49,13 +49,15 @@ public class nowychPlikówTworzenie {
                     "import Erpegkraj.PanelGry;\n" +
                     "import Erpegkraj.Postacie.Postać;\n" +
                     "import java.util.ArrayList;\n\n"+
-                    "public class "+wartość.get("nazwaKlasy")+" extends Jednorazówki {\n\n"+
+                    "public class "+wartość.get("nazwaKlasy")+" extends Jednorazówki {\n\n" +
+                    "PanelGry gp;\n"+
                     wartość.get("Zmienne")+"\n\n"+
                     "    public "+wartość.get("nazwaKlasy")+"(ArrayList<Postać> wrogowie, PanelGry gp) {\n" +
-                    "        super(\""+wartość.get("Nazwa")+"\", wrogowie, gp);\n" +
+                    "        super(\""+wartość.get("Nazwa")+"\", wrogowie, gp);\n\n" +
+                    "        this.gp = gp;\n" +
                     "    }\n\n"
                     +"    @Override\n"+
-                    "    public void działanie(int cel) {\n"+
+                    "    public void działanie(int cel) throws IOException {\n"+
                     wartość.get("Działanie")+
                     "\n}}";
 

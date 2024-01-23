@@ -8,8 +8,8 @@ import java.io.IOException;
 import java.util.HashMap;
 public class Trucizna extends Efekty {
 
-    public Trucizna(PanelGry gp, int początkowaIlośćRund) throws IOException {
-        super("null", gp, "efekty/Trutka.png", początkowaIlośćRund);
+    public Trucizna(PanelGry gp) throws IOException {
+        super("null", gp, "efekty/Trutka.png");
     }
 @Override
 public void działanieGdyUpłynieRunda(){   postać.życie-=2;}

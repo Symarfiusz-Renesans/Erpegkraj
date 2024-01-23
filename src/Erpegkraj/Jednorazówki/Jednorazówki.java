@@ -5,6 +5,7 @@ import Erpegkraj.Postacie.Bohater;
 import Erpegkraj.Postacie.Postać;
 import Erpegkraj.Postacie.Wróg;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.lang.Math;
@@ -25,7 +26,7 @@ public class Jednorazówki extends Erpegkraj.Grafika.Grafika{
         this.bohater = b;
     }
 
-    public void działanie(int cel){
+    public void działanie(int cel) throws IOException {
 
     }
 
