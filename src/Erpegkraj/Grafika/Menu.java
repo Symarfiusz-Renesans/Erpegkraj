@@ -113,7 +113,7 @@ public class Menu extends Grafika{
                         default:
                             for (Jednorazówki j: gp.wszytkieMożliwePrzedmioty){
                                 if(Objects.equals(akcja, j.nazwa)){
-                                    j.działanie(poziomCEL);
+                                    //j.działanie(poziomCEL);
                                 }
                             }
                     }

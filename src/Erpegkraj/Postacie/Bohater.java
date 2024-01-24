@@ -35,6 +35,7 @@ public abstract class Bohater extends Postać implements ZarządcaArkuszów{
 
         ekwipunek.add(gp.wszytkieMożliwePrzedmioty.get(0));
         ekwipunek.add(gp.wszytkieMożliwePrzedmioty.get(1));
+        ekwipunek.add(gp.wszytkieMożliwePrzedmioty.get(2));
 
         for (Uzbrojenie u : uzbrojenie){
             u.ustalMoc(this);

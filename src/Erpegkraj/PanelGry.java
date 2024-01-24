@@ -40,6 +40,7 @@ public class PanelGry extends JPanel implements Runnable{
     public ArrayList<Jednorazówki> wszytkieMożliwePrzedmioty = new ArrayList<Jednorazówki>(){{
         add(0, new napójZdrowia(wrogowie, PanelGry.this));
         add(1, new kamień(wrogowie, PanelGry.this));
+        add(2, new trutka(wrogowie, PanelGry.this));
     }};
     //Bohater
     public Bohater bohater = new Krzyżowiec(rozmiarKafelek,ilośćSłupków, ilośćRzędów, this);
