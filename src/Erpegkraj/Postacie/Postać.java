@@ -85,6 +85,7 @@ public abstract class Postać extends Erpegkraj.Grafika.Grafika implements Przer
     public void dodajEfekt(Efekty jaki, int naIle){
         jaki.ustawPostać(this);
         efekty.put(jaki, naIle);
+        jaki.działaniePrzyOtrzymaniu();
     }
 
     public void ustawRozmiarGracza(){
@@ -104,6 +105,9 @@ public abstract class Postać extends Erpegkraj.Grafika.Grafika implements Przer
             czyUmiera = true;
             return 30;
         } else if (czyJużCzas == 0){
+            for (Efekty e: efekty){
+                e.działanieGdyUpłynieRunda();
+            }
             if (czyAtakuje){
                 if (domyślnyRys != rysy.get("a1") && domyślnyRys != rysy.get("a2")) {
                     domyślnyRys = rysy.get("a1");

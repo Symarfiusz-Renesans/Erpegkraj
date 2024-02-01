@@ -11,6 +11,7 @@ import Erpegkraj.Postacie.Postać;
 import Erpegkraj.Postacie.Wróg;
 
 import java.awt.*;
+import java.io.IOException;
 import java.util.Objects;
 
 public class Menu extends Grafika{
@@ -46,7 +47,7 @@ public class Menu extends Grafika{
     }
 
 
-    public String[] odnów(){
+    public String[] odnów() throws IOException {
 
         ilośćWrogów=ustalIlośćWrogów(gp);
 
@@ -113,7 +114,7 @@ public class Menu extends Grafika{
                         default:
                             for (Jednorazówki j: gp.wszytkieMożliwePrzedmioty){
                                 if(Objects.equals(akcja, j.nazwa)){
-                                    //j.działanie(poziomCEL);
+                                    j.działanie(poziomCEL);
                                 }
                             }
                     }

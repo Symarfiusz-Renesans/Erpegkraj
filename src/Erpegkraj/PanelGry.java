@@ -94,7 +94,12 @@ public class PanelGry extends JPanel implements Runnable{
                 }
                 if (bohater.czyJegoKolej) {
                     if (odczekanieNaKolejneWejście == 0) {
-                        String[] statut = odnów();
+                        String[] statut = new String[0];
+                        try {
+                            statut = odnów();
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
                         if (statut[0].equals("przesunięto")) {
                             odczekanieNaKolejneWejście = 10;
                         }
@@ -141,7 +146,7 @@ public class PanelGry extends JPanel implements Runnable{
         }
     }
 
-    public String[] odnów(){
+    public String[] odnów() throws IOException {
         return menu.odnów();
     }
     public void paintComponent(Graphics graphics){
