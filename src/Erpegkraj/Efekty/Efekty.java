@@ -24,7 +24,7 @@ public abstract class Efekty extends Erpegkraj.Grafika.Grafika {
     public Efekty(String nazwa, PanelGry gp, String ikona) throws IOException {
         super(0, 0, 0, gp);
         this.nazwa = nazwa;
-        this.ikona = Przerozmierzacz.przerozmierzanie(ImageIO.read(getClass().getResourceAsStream("/Rysy/"+ikona)),10,10);
+        this.ikona = Przerozmierzacz.przerozmierzanie(ImageIO.read(getClass().getResourceAsStream("/Rysy/"+ikona)),30,30);
     }
 
     public void ustawPostać(Postać p){

@@ -18,7 +18,7 @@ public class Wróg extends Postać implements ZarządcaArkuszów {
     protected FileInputStream daneWroga;
 
     public Wróg(String nazwa,int miejsce, int rozmiar, int x, int y, PanelGry gp){
-        super(rozmiar, x, y, gp, 0, 150, 155, 175);
+        super(rozmiar, x, y, gp, 0, 125, 155, 175);
         postaćX = ustawPołożenieX(miejsce, x, rozmiar);
 
         try {

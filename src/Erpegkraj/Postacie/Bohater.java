@@ -28,7 +28,7 @@ public abstract class Bohater extends Postać implements ZarządcaArkuszów{
 
 
     public Bohater(String nazwa,int rozmiar, int x, int y, PanelGry gp) throws IOException {
-        super(rozmiar, x, y, gp, 150,150, 155, 175);
+        super(rozmiar, x, y, gp, 150,125, 155, 175);
         this.skupienie = 0;
 
         przydzielDane(ZarządcaArkuszów.podzielDane(ZarządcaArkuszów.przeczytajWierszArkusza(daneBohatera, "Bohaterowie", nazwa)));

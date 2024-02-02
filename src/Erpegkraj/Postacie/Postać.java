@@ -64,6 +64,7 @@ public abstract class Postać extends Erpegkraj.Grafika.Grafika implements Przer
     }
     public void otrzymajObrażenia(int obrażenia){
         if (!czyUniknieObrażeń()){
+            czasDziałaniaEfektów(4,null);
             odebraneObrażenia = (obrażenia-efetkywnośćObrony());
             if (odebraneObrażenia < 0){
                 odebraneObrażenia = 0;
@@ -83,9 +84,15 @@ public abstract class Postać extends Erpegkraj.Grafika.Grafika implements Przer
         }
     }
     public void dodajEfekt(Efekty jaki, int naIle){
-        jaki.ustawPostać(this);
-        efekty.put(jaki, naIle);
-        jaki.działaniePrzyOtrzymaniu();
+        System.out.println(efekty.get(jaki) == null);
+        
+        if(efekty.get(jaki) != null) {
+            efekty.put(jaki, efekty.get(jaki)+naIle);
+        } else {
+            jaki.ustawPostać(this);
+            efekty.put(jaki, naIle);
+            jaki.działaniePrzyOtrzymaniu();
+        }
     }
 
     public void ustawRozmiarGracza(){
@@ -105,9 +112,6 @@ public abstract class Postać extends Erpegkraj.Grafika.Grafika implements Przer
             czyUmiera = true;
             return 30;
         } else if (czyJużCzas == 0){
-            for (Efekty e: efekty){
-                e.działanieGdyUpłynieRunda();
-            }
             if (czyAtakuje){
                 if (domyślnyRys != rysy.get("a1") && domyślnyRys != rysy.get("a2")) {
                     domyślnyRys = rysy.get("a1");
@@ -115,6 +119,7 @@ public abstract class Postać extends Erpegkraj.Grafika.Grafika implements Przer
                 else if (domyślnyRys == rysy.get("a1")){
                     domyślnyRys = rysy.get("a2");
                     czyAtakuje = false;
+                    czasDziałaniaEfektów(3, null);
                 }
             }else {
                 if (domyślnyRys == rysy.get("d1")) domyślnyRys = rysy.get("d2");
@@ -130,10 +135,19 @@ public abstract class Postać extends Erpegkraj.Grafika.Grafika implements Przer
         płótno.fillRect(postaćX, postaćY-30, szerokość, 20);
         płótno.setColor(Color.GREEN);
 
-
         płótno.fillRect(postaćX, postaćY-30, (maksŻycia == życie)?szerokość:(int)((szerokość/maksŻycia)*życie), 20);
         płótno.setFont(gp.czcionka);
         płótno.setColor(Color.WHITE);
+        int i = 0;
+        for (Map.Entry<Efekty, Integer> e: efekty.entrySet()){
+            Efekty klucz = e.getKey();
+            int wartość = e.getValue();
+
+            płótno.drawImage(klucz.ikona, postaćX+(i*40), postaćY + 175, null);
+            płótno.drawString(String.valueOf(wartość), postaćX-10+(i*45), postaćY+185);
+
+            i++;
+        }
         płótno.drawString(String.valueOf(życie), postaćX+5, postaćY-20);
         if (odebraneObrażenia >= 0){
             if (odebraneObrażenia == 0){
@@ -181,15 +195,8 @@ public abstract class Postać extends Erpegkraj.Grafika.Grafika implements Przer
                 case 4:
                     klucz.działaniePrzedOdebraniemObrażeń();
                     break;
-                case 5:
-                    klucz.działaniePrzyOtrzymaniu();
-                    break;
-                case 6:
-                    klucz.działaniePrzyWyczerpaniu();
-                    break;
             }
-            if (wartość != 0) wartość--;
-            else efekty.remove(klucz, wartość);
+            if (wartość == 0) efekty.remove(klucz, wartość);
         }
     }
 }
