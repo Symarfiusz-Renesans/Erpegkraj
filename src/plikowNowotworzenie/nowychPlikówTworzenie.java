@@ -48,7 +48,9 @@ public class nowychPlikówTworzenie {
                     "import Erpegkraj.Jednorazówki.Jednorazówki;\n" +
                     "import Erpegkraj.PanelGry;\n" +
                     "import Erpegkraj.Postacie.Postać;\n" +
-                    "import java.util.ArrayList;\n\n"+
+                    "import java.util.ArrayList;\n\n" +
+                    "import java.io.IOException;\n" +
+                    "import Erpegkraj.Efekty.efekty.*;\n"+
                     "public class "+wartość.get("nazwaKlasy")+" extends Jednorazówki {\n\n" +
                     "PanelGry gp;\n"+
                     wartość.get("Zmienne")+"\n\n"+
@@ -131,8 +133,8 @@ public class nowychPlikówTworzenie {
                     "import java.util.HashMap;\n"+
                     "public class "+klucz+" extends Efekty {\n" +
                     "\n" +
-                    "    public "+klucz+"(PanelGry gp, int początkowaIlośćRund) throws IOException {\n" +
-                    "        super(\""+wartość.get("nazwa")+"\", gp, \""+wartość.get("Ikona")+"\", początkowaIlośćRund);\n" +
+                    "    public "+klucz+"(PanelGry gp) throws IOException {\n" +
+                    "        super(\""+wartość.get("Nazwa")+"\", gp, \""+wartość.get("Ikona")+"\");\n" +
                     "    }\n";
 
             if (wartość.get("PrzyOtrzymaniu") != null){

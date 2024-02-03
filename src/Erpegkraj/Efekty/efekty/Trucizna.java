@@ -9,7 +9,7 @@ import java.util.HashMap;
 public class Trucizna extends Efekty {
 
     public Trucizna(PanelGry gp) throws IOException {
-        super("null", gp, "efekty/Trutka.png");
+        super("Trucizna", gp, "efekty/Trutka.png");
     }
 @Override
 public void działanieGdyUpłynieRunda(){   postać.życie-=2;}

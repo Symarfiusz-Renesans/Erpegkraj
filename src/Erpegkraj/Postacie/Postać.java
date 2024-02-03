@@ -18,6 +18,8 @@ import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import javax.swing.Timer;
 
+import static java.util.Objects.isNull;
+
 public abstract class Postać extends Erpegkraj.Grafika.Grafika implements Przerozmierzacz, ActionListener {
     PanelGry panelGry;
 
@@ -84,14 +86,27 @@ public abstract class Postać extends Erpegkraj.Grafika.Grafika implements Przer
         }
     }
     public void dodajEfekt(Efekty jaki, int naIle){
-        System.out.println(efekty.get(jaki) == null);
+
+        Efekty możliwyKlucz = null;
+
+        for (Map.Entry<Efekty, Integer> e: efekty.entrySet()){
+            Efekty klucz = e.getKey();
+            int wartość = e.getValue();
+
+            if (klucz.nazwa == jaki.nazwa){
+                możliwyKlucz = klucz;
+                break;
+            }
+        }
         
-        if(efekty.get(jaki) != null) {
-            efekty.put(jaki, efekty.get(jaki)+naIle);
+        if(!isNull(możliwyKlucz)) {
+            efekty.put(możliwyKlucz, efekty.get(możliwyKlucz) + naIle);
+            System.out.println("jeżeli");
         } else {
             jaki.ustawPostać(this);
             efekty.put(jaki, naIle);
             jaki.działaniePrzyOtrzymaniu();
+            System.out.println("w innym wypadku");
         }
     }
 
