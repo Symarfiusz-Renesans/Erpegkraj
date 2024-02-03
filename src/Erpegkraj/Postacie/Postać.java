@@ -46,7 +46,7 @@ public abstract class Postać extends Erpegkraj.Grafika.Grafika implements Przer
     }};
     public BufferedImage domyślnyRys;
 
-    protected HashMap<Efekty, Integer> efekty = new HashMap<>();
+    public HashMap<Efekty, Integer> efekty = new HashMap<>();
 
     public int maksŻycia,życie,siła,odporność,unik, odebraneObrażenia = -1;
     public int życieUlep, siłaUlep, odpornośćUlep,  unikUlep;
@@ -66,7 +66,7 @@ public abstract class Postać extends Erpegkraj.Grafika.Grafika implements Przer
     }
     public void otrzymajObrażenia(int obrażenia){
         if (!czyUniknieObrażeń()){
-            czasDziałaniaEfektów(4,null);
+            czasDziałaniaEfektów(3,null);
             odebraneObrażenia = (obrażenia-efetkywnośćObrony());
             if (odebraneObrażenia < 0){
                 odebraneObrażenia = 0;
@@ -93,7 +93,7 @@ public abstract class Postać extends Erpegkraj.Grafika.Grafika implements Przer
             Efekty klucz = e.getKey();
             int wartość = e.getValue();
 
-            if (klucz.nazwa == jaki.nazwa){
+            if (Objects.equals(klucz.nazwa, jaki.nazwa)){
                 możliwyKlucz = klucz;
                 break;
             }
@@ -205,9 +205,6 @@ public abstract class Postać extends Erpegkraj.Grafika.Grafika implements Przer
                     klucz.działaniePrzyUżyciuPrzedmiotu(użytyPrzedmiot);
                     break;
                 case 3:
-                    klucz.działanieGdyUpłynieRunda();
-                    break;
-                case 4:
                     klucz.działaniePrzedOdebraniemObrażeń();
                     break;
             }

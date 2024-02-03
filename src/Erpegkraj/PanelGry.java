@@ -1,5 +1,6 @@
 package Erpegkraj;
 
+import Erpegkraj.Efekty.Efekty;
 import Erpegkraj.Grafika.Menu;
 import Erpegkraj.Jednorazówki.Jednorazówki;
 import Erpegkraj.Jednorazówki.przedmioty.*;
@@ -12,6 +13,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
 
 public class PanelGry extends JPanel implements Runnable{
 
@@ -76,6 +78,7 @@ public class PanelGry extends JPanel implements Runnable{
         int liczbaRamekNaSekundę = 0;
         int odczekanieNaKolejneWejście = 0;
         int odczekanieDomyślnegoŻyworysu = 30;
+        boolean razNaRundę = true;
 
         while (wątekGry != null){
             tenRaz = System.nanoTime();
@@ -93,6 +96,10 @@ public class PanelGry extends JPanel implements Runnable{
                     usuńWroga();
                 }
                 if (bohater.czyJegoKolej) {
+                    if (razNaRundę){
+                        razNaRundę=false;
+                        nowaRunda();
+                    }
                     if (odczekanieNaKolejneWejście == 0) {
                         String[] statut = new String[0];
                         try {
@@ -126,7 +133,9 @@ public class PanelGry extends JPanel implements Runnable{
                                     wrogowie.get(i).czyJegoKolej = false;
                                     break;
                                 }else if (!wrogowie.get(wrogowie.size()-1).czyJegoKolej) {
+                                    System.out.println("powtórka");
                                     bohater.czyJegoKolej = true;
+                                    razNaRundę = true;
                                     menu.nowaRunda();
                                 }
 
@@ -180,6 +189,26 @@ public class PanelGry extends JPanel implements Runnable{
             }
         }
         //System.out.println(wrogowie);
+    }
+
+    public void nowaRunda(){
+        for(Postać w: wrogowie){
+            System.out.println(w);
+            for (Map.Entry<Efekty,Integer> mapa: w.efekty.entrySet()) {
+                System.out.println(mapa);
+                Efekty efekt = mapa.getKey();
+
+                efekt.działanieGdyUpłynieRunda();
+                mapa.setValue(mapa.getValue()-1);
+            }
+        }
+
+        for (Map.Entry<Efekty,Integer> mapa: bohater.efekty.entrySet()) {
+            Efekty efekt = mapa.getKey();
+
+            efekt.działanieGdyUpłynieRunda();
+            mapa.setValue(mapa.getValue()-1);
+        }
     }
 
 }
