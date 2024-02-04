@@ -122,6 +122,7 @@ public class PanelGry extends JPanel implements Runnable{
                         boolean kontynuować = true;
                         for (Postać wróg: wrogowie){
                             if (wróg.czyAtakuje && !bohater.czyUmiera){
+
                                 kontynuować = false;
                                 break;
                             }
@@ -129,11 +130,16 @@ public class PanelGry extends JPanel implements Runnable{
                         if (kontynuować) {
                             for (int i = 0; i < wrogowie.size(); i++) {
                                 if (wrogowie.get(i).czyJegoKolej) {
+                                    for (Map.Entry<Efekty,Integer> mapa: wrogowie.get(i).efekty.entrySet()) {
+                                        System.out.println(mapa);
+                                        Efekty efekt = mapa.getKey();
+
+                                        efekt.działaniePrzyAtaku();
+                                    }
                                     wrogowie.get(i).zadajObrażenia(bohater, false);
                                     wrogowie.get(i).czyJegoKolej = false;
                                     break;
                                 }else if (!wrogowie.get(wrogowie.size()-1).czyJegoKolej) {
-                                    System.out.println("powtórka");
                                     bohater.czyJegoKolej = true;
                                     razNaRundę = true;
                                     menu.nowaRunda();

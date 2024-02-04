@@ -6,6 +6,7 @@ import org.apache.poi.ss.usermodel.DataFormatter;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -82,12 +83,14 @@ public interface ZarządcaArkuszów {
             }
 
             String[] podzieloneDane = dane.split("~");
+            System.out.println(Arrays.toString(podzieloneDane));
             int j = 0;
             String klucz = "";
             for (String dana: podzieloneDane){
                 String[] podzielonaDana = dana.split("#");
                 if (j == 0){
-                    if (Objects.equals(podzielonaDana[1], "Łotr") || Objects.equals(podzielonaDana[1], "Wołchw") || Objects.equals(podzielonaDana[1], "Kupiec") || Objects.equals(podzielonaDana[1], "Boski Sędzia")) break;
+                    if(Objects.equals(podzielonaDana.length, 1)) break;
+                    if (Objects.equals(podzielonaDana[1], "Łotr") || Objects.equals(podzielonaDana[1], "Wołchw") || Objects.equals(podzielonaDana[1], "Kupiec") || Objects.equals(podzielonaDana[1], "Boski Sędzia" )) break;
                     podział.put(podzielonaDana[1], new HashMap<String, String>());
                     klucz = podzielonaDana[1];
                     j++;

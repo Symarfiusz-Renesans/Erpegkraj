@@ -1,5 +1,7 @@
 package Erpegkraj.Grafika;
 
+import Erpegkraj.Efekty.Efekty;
+import Erpegkraj.Efekty.efekty.*;
 import Erpegkraj.Jednorazówki.Jednorazówki;
 import Erpegkraj.Postacie.Bohater;
 import Erpegkraj.Grafika.DaneWMenu.PołożenieWMenu;
@@ -107,7 +109,7 @@ public class Menu extends Grafika{
                             gp.bohater.ZdolnośćWyjątkowa();
                             break;
                         case "Obrona":
-
+                            gp.bohater.dodajEfekt(new Dozbrojenie(gp), 3);
                             break;
                         case "ObronaZPremią":
                             break;

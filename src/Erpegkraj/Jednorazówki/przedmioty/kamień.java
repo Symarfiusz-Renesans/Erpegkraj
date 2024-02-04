@@ -6,6 +6,7 @@ import Erpegkraj.Postacie.Postać;
 import java.util.ArrayList;
 
 import java.io.IOException;
+import Erpegkraj.Efekty.efekty.*;
 public class kamień extends Jednorazówki {
 
 PanelGry gp;

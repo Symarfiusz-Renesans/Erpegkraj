@@ -1,12 +1,12 @@
 package Erpegkraj.Jednorazówki.przedmioty;
 
-import Erpegkraj.Efekty.efekty.*;
 import Erpegkraj.Jednorazówki.Jednorazówki;
 import Erpegkraj.PanelGry;
 import Erpegkraj.Postacie.Postać;
 import java.util.ArrayList;
 
 import java.io.IOException;
+import Erpegkraj.Efekty.efekty.*;
 public class trutka extends Jednorazówki {
 
 PanelGry gp;
