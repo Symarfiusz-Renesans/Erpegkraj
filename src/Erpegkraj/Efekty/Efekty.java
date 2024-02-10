@@ -40,7 +40,7 @@ public abstract class Efekty extends Erpegkraj.Grafika.Grafika {
     public void działaniePrzyAtaku(){
 
     }
-    public void działaniePrzyUżyciuPrzedmiotu(Jednorazówki użytyPrzedmiot){
+    public void działaniePrzyUżyciuPrzedmiotu(String użytyPrzedmiot){
 
     }
     public void działanieGdyUpłynieRunda(){

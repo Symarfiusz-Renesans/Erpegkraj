@@ -66,7 +66,7 @@ public abstract class Postać extends Erpegkraj.Grafika.Grafika implements Przer
     }
     public void otrzymajObrażenia(int obrażenia){
         if (!czyUniknieObrażeń()){
-            czasDziałaniaEfektów(3,null);
+            czasDziałaniaEfektów(3);
             odebraneObrażenia = (obrażenia-efetkywnośćObrony());
             if (odebraneObrażenia < 0){
                 odebraneObrażenia = 0;
@@ -83,6 +83,7 @@ public abstract class Postać extends Erpegkraj.Grafika.Grafika implements Przer
         if(!czyUmiera){
             czyAtakuje = true;
             odbiorcaUsługi.otrzymajObrażenia(siłaUlep);
+            czasDziałaniaEfektów(1);
         }
     }
     public void dodajEfekt(Efekty jaki, int naIle){
@@ -134,7 +135,7 @@ public abstract class Postać extends Erpegkraj.Grafika.Grafika implements Przer
                 else if (domyślnyRys == rysy.get("a1")){
                     domyślnyRys = rysy.get("a2");
                     czyAtakuje = false;
-                    czasDziałaniaEfektów(3, null);
+                    czasDziałaniaEfektów(3);
                 }
             }else {
                 if (domyślnyRys == rysy.get("d1")) domyślnyRys = rysy.get("d2");
@@ -193,16 +194,13 @@ public abstract class Postać extends Erpegkraj.Grafika.Grafika implements Przer
             czasZniknięcia.stop();
         }
     }
-    public void czasDziałaniaEfektów(int jaki, Jednorazówki użytyPrzedmiot){
+    public void czasDziałaniaEfektów(int jaki){
         for (Map.Entry<Efekty, Integer> m : efekty.entrySet()) {
             Efekty klucz = m.getKey();
             int wartość = m.getValue();
             switch(jaki){
                 case 1:
                     klucz.działaniePrzyAtaku();
-                    break;
-                case 2:
-                    klucz.działaniePrzyUżyciuPrzedmiotu(użytyPrzedmiot);
                     break;
                 case 3:
                     klucz.działaniePrzedOdebraniemObrażeń();

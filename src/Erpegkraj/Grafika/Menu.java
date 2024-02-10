@@ -14,6 +14,7 @@ import Erpegkraj.Postacie.Wróg;
 
 import java.awt.*;
 import java.io.IOException;
+import java.util.Map;
 import java.util.Objects;
 
 public class Menu extends Grafika{
@@ -112,11 +113,17 @@ public class Menu extends Grafika{
                             gp.bohater.dodajEfekt(new Dozbrojenie(gp), 3);
                             break;
                         case "ObronaZPremią":
+                            gp.bohater.dodajEfekt(new DozbrojeniePlus(gp), 3);
                             break;
                         default:
                             for (Jednorazówki j: gp.wszytkieMożliwePrzedmioty){
                                 if(Objects.equals(akcja, j.nazwa)){
                                     j.działanie(poziomCEL);
+                                    for(Map.Entry<Efekty, Integer> e: gp.bohater.efekty.entrySet()){
+                                        Efekty klucz = e.getKey();
+
+                                        klucz.działaniePrzyUżyciuPrzedmiotu(j.nazwa);
+                                    }
                                 }
                             }
                     }
