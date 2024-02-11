@@ -2,6 +2,7 @@ package Erpegkraj;
 
 import Erpegkraj.Efekty.Efekty;
 import Erpegkraj.Grafika.Menu;
+import Erpegkraj.Grafika.MenuWalki;
 import Erpegkraj.Jednorazówki.Jednorazówki;
 import Erpegkraj.Jednorazówki.przedmioty.*;
 import Erpegkraj.Postacie.Bohater;
@@ -48,7 +49,7 @@ public class PanelGry extends JPanel implements Runnable{
     public Bohater bohater = new Krzyżowiec(rozmiarKafelek,ilośćSłupków, ilośćRzędów, this);
 
     //Menu
-    Menu menu = new Menu(rozmiarKafelek,ilośćSłupków, ilośćRzędów, this, oKlawiszy);
+    Menu menu = new MenuWalki(rozmiarKafelek,ilośćSłupków, ilośćRzędów, this, oKlawiszy);
 
     public PanelGry() throws IOException {
         this.setPreferredSize(new Dimension(szerokośćOkna, wysokośćOkna));
