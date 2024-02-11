@@ -10,19 +10,120 @@ import Erpegkraj.Grafika.DaneWMenu.typAkcji;
 import Erpegkraj.Jednorazówki.Jednorazówki;
 import Erpegkraj.ObsługiwaczKlawiszy;
 import Erpegkraj.PanelGry;
+import Erpegkraj.Postacie.Bohater;
+import Erpegkraj.Postacie.Bohaterowie.Krzyżowiec;
 import Erpegkraj.Postacie.Postać;
+import Erpegkraj.Postacie.Wróg;
 
 import java.awt.*;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Objects;
 
 public class MenuWalki extends Menu{
 
-    public MenuWalki(int rozmiar, int x, int y, PanelGry gp, ObsługiwaczKlawiszy ok) {
+    protected PanelGry gp;
+
+    protected int ilośćPoziomów = 0;
+    protected int ilośćWrogów = 0;
+    protected int poziom = 3;
+    protected int poziomCEL;
+    protected int wybórTypuAkcji = -1;
+    protected int wybórAkcji = -1;
+    protected int wybórCelu = -1;
+    protected String akcja = "";
+
+    int odczekanieNaKolejneWejście = 0;
+    int odczekanieDomyślnegoŻyworysu = 30;
+    boolean razNaRundę = true;
+
+    public ArrayList<Postać> wrogowie = new ArrayList<Postać>(){{
+    }};
+
+    public Bohater bohater;
+
+    public MenuWalki(int rozmiar, int x, int y, PanelGry gp, ObsługiwaczKlawiszy ok, ArrayList<Jednorazówki> jednorazówki) throws IOException {
         super(rozmiar, x, y, gp, ok);
 
-        ilośćWrogów=ustalIlośćWrogów(gp);
+        this.gp = gp;
+
+        bohater = new Krzyżowiec(rozmiarKafelek,ilośćSłupków, ilośćRzędów, gp);
+
+        wrogowie.add(0, new Wróg("Ognik",0, rozmiarKafelek,ilośćSłupków, ilośćRzędów, gp));
+        wrogowie.add(1, new Wróg("Ognik",1, rozmiarKafelek,ilośćSłupków, ilośćRzędów, gp));
+        wrogowie.add(2, new Wróg("Bagiennik",2, rozmiarKafelek,ilośćSłupków, ilośćRzędów, gp));
+
+
+
+        for (Jednorazówki j: jednorazówki){
+            j.ustawBohatera(bohater);
+        }
+    }
+
+    @Override
+    public void runMenu() {
+        odczekanieDomyślnegoŻyworysu = bohater.odnów(odczekanieDomyślnegoŻyworysu);
+        if (odczekanieDomyślnegoŻyworysu == 30){
+            for (Postać wróg: wrogowie){
+                wróg.odnów(0);
+            }
+            usuńWroga();
+        }
+        if (bohater.czyJegoKolej) {
+            if (razNaRundę){
+                razNaRundę=false;
+                nowaRunda();
+            }
+            if (odczekanieNaKolejneWejście == 0) {
+                String[] statut = new String[0];
+                try {
+                    statut = odnów();
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+                if (statut[0].equals("przesunięto")) {
+                    odczekanieNaKolejneWejście = 10;
+                }
+                if (statut[1].equals("Akcja")) {
+                    for (Postać wróg : wrogowie) {
+                        wróg.czyJegoKolej = true;
+                    }
+                    bohater.czyJegoKolej = false;
+                }
+            } else odczekanieNaKolejneWejście--;
+        }else {
+            if (!bohater.czyAtakuje){
+                boolean kontynuować = true;
+                for (Postać wróg: wrogowie){
+                    if (wróg.czyAtakuje && !bohater.czyUmiera){
+
+                        kontynuować = false;
+                        break;
+                    }
+                }
+                if (kontynuować) {
+                    for (int i = 0; i < wrogowie.size(); i++) {
+                        if (wrogowie.get(i).czyJegoKolej) {
+                            for (Map.Entry<Efekty,Integer> mapa: wrogowie.get(i).efekty.entrySet()) {
+                                System.out.println(mapa);
+                                Efekty efekt = mapa.getKey();
+
+                                efekt.działaniePrzyAtaku();
+                            }
+                            wrogowie.get(i).zadajObrażenia(bohater, false);
+                            wrogowie.get(i).czyJegoKolej = false;
+                            break;
+                        }else if (!wrogowie.get(wrogowie.size()-1).czyJegoKolej) {
+                            bohater.czyJegoKolej = true;
+                            razNaRundę = true;
+                            nowaRunda();
+                        }
+
+                    }
+                }
+            }
+        }
     }
 
     @Override
@@ -297,5 +398,36 @@ public class MenuWalki extends Menu{
         }
 
         return ilość;
+    }
+    public void usuńWroga(){
+        for (int i = 0; i < wrogowie.size(); i++){
+            if (wrogowie.get(i).wartośćAlfa == 0){
+                for (int j = i; j < wrogowie.size()-1; j++){
+                    wrogowie.set(j, wrogowie.get(j+1));
+                    wrogowie.get(j).postaćX = Wróg.ustawPołożenieX(j, ilośćSłupków, rozmiarKafelek);
+                }
+                wrogowie.remove(wrogowie.size()-1);
+            }
+        }
+    }
+
+    public void nowaRunda(){
+        for(Postać w: wrogowie){
+            System.out.println(w);
+            for (Map.Entry<Efekty,Integer> mapa: w.efekty.entrySet()) {
+                System.out.println(mapa);
+                Efekty efekt = mapa.getKey();
+
+                efekt.działanieGdyUpłynieRunda();
+                mapa.setValue(mapa.getValue()-1);
+            }
+        }
+
+        for (Map.Entry<Efekty,Integer> mapa: bohater.efekty.entrySet()) {
+            Efekty efekt = mapa.getKey();
+
+            efekt.działanieGdyUpłynieRunda();
+            mapa.setValue(mapa.getValue()-1);
+        }
     }
 }

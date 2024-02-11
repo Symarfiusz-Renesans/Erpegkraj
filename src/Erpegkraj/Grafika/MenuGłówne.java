@@ -17,6 +17,11 @@ public class MenuGłówne extends Menu {
     }
 
     @Override
+    public void runMenu() {
+
+    }
+
+    @Override
     public String[] odnów() throws IOException {
         return new String[0];
     }
