@@ -82,10 +82,12 @@ public class PanelGry extends JPanel implements Runnable{
                 if (bohater == null){
                     MenuGłówne.runMenu();
                 } else {
-                    try {
-                        MenuWalki = new MenuWalki(rozmiarKafelek,ilośćSłupków, ilośćRzędów, this, oKlawiszy, wszytkieMożliwePrzedmioty, bohater);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
+                    if (MenuWalki == null) {
+                        try {
+                            MenuWalki = new MenuWalki(rozmiarKafelek, ilośćSłupków, ilośćRzędów, this, oKlawiszy, wszytkieMożliwePrzedmioty, bohater);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
                     }
                     MenuWalki.runMenu();
                 }
