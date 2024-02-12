@@ -54,8 +54,8 @@ public class nowychPlikówTworzenie {
                     "public class "+wartość.get("nazwaKlasy")+" extends Jednorazówki {\n\n" +
                     "PanelGry gp;\n"+
                     wartość.get("Zmienne")+"\n\n"+
-                    "    public "+wartość.get("nazwaKlasy")+"(ArrayList<Postać> wrogowie, PanelGry gp) {\n" +
-                    "        super(\""+wartość.get("Nazwa")+"\", wrogowie, gp);\n\n" +
+                    "    public "+wartość.get("nazwaKlasy")+"(PanelGry gp) {\n" +
+                    "        super(\""+wartość.get("Nazwa")+"\", gp);\n\n" +
                     "        this.gp = gp;\n" +
                     "    }\n\n"
                     +"    @Override\n"+

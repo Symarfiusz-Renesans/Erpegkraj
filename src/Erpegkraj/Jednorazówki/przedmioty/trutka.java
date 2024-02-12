@@ -12,8 +12,8 @@ public class trutka extends Jednorazówki {
 PanelGry gp;
 int naIle = 3;
 
-    public trutka(ArrayList<Postać> wrogowie, PanelGry gp) {
-        super("Trutka", wrogowie, gp);
+    public trutka(PanelGry gp) {
+        super("Trutka", gp);
 
         this.gp = gp;
     }

@@ -12,8 +12,8 @@ public class kamień extends Jednorazówki {
 PanelGry gp;
 int zadaneObrażenia = 5;
 
-    public kamień(ArrayList<Postać> wrogowie, PanelGry gp) {
-        super("Kamień", wrogowie, gp);
+    public kamień(PanelGry gp) {
+        super("Kamień", gp);
 
         this.gp = gp;
     }

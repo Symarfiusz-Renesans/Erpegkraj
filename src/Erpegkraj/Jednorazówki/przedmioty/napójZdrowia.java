@@ -12,8 +12,8 @@ public class napójZdrowia extends Jednorazówki {
 PanelGry gp;
 int ilośćLeczonegoZdrowia = 10;
 
-    public napójZdrowia(ArrayList<Postać> wrogowie, PanelGry gp) {
-        super("Napój Zdrowia", wrogowie, gp);
+    public napójZdrowia(PanelGry gp) {
+        super("Napój Zdrowia", gp);
 
         this.gp = gp;
     }

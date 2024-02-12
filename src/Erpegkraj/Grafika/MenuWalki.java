@@ -5,7 +5,7 @@ import Erpegkraj.Efekty.efekty.Dozbrojenie;
 import Erpegkraj.Efekty.efekty.DozbrojeniePlus;
 import Erpegkraj.Grafika.DaneWMenu.Akcje.Atak;
 import Erpegkraj.Grafika.DaneWMenu.Akcje.Obrona;
-import Erpegkraj.Grafika.DaneWMenu.PołożenieWMenu;
+import Erpegkraj.Grafika.DaneWMenu.PołożenieWMenuWalki;
 import Erpegkraj.Grafika.DaneWMenu.typAkcji;
 import Erpegkraj.Jednorazówki.Jednorazówki;
 import Erpegkraj.ObsługiwaczKlawiszy;
@@ -25,14 +25,10 @@ public class MenuWalki extends Menu{
 
     protected PanelGry gp;
 
-    protected int ilośćPoziomów = 0;
-    protected int ilośćWrogów = 0;
-    protected int poziom = 3;
     protected int poziomCEL;
     protected int wybórTypuAkcji = -1;
     protected int wybórAkcji = -1;
     protected int wybórCelu = -1;
-    protected String akcja = "";
 
     int odczekanieNaKolejneWejście = 0;
     int odczekanieDomyślnegoŻyworysu = 30;
@@ -43,12 +39,12 @@ public class MenuWalki extends Menu{
 
     public Bohater bohater;
 
-    public MenuWalki(int rozmiar, int x, int y, PanelGry gp, ObsługiwaczKlawiszy ok, ArrayList<Jednorazówki> jednorazówki) throws IOException {
+    public MenuWalki(int rozmiar, int x, int y, PanelGry gp, ObsługiwaczKlawiszy ok, ArrayList<Jednorazówki> jednorazówki, Bohater bohater) throws IOException {
         super(rozmiar, x, y, gp, ok);
 
         this.gp = gp;
 
-        bohater = new Krzyżowiec(rozmiarKafelek,ilośćSłupków, ilośćRzędów, gp);
+        this.bohater = bohater;
 
         wrogowie.add(0, new Wróg("Ognik",0, rozmiarKafelek,ilośćSłupków, ilośćRzędów, gp));
         wrogowie.add(1, new Wróg("Ognik",1, rozmiarKafelek,ilośćSłupków, ilośćRzędów, gp));
@@ -63,14 +59,14 @@ public class MenuWalki extends Menu{
 
     @Override
     public void runMenu() {
-        odczekanieDomyślnegoŻyworysu = bohater.odnów(odczekanieDomyślnegoŻyworysu);
+        odczekanieDomyślnegoŻyworysu = this.bohater.odnów(odczekanieDomyślnegoŻyworysu);
         if (odczekanieDomyślnegoŻyworysu == 30){
             for (Postać wróg: wrogowie){
                 wróg.odnów(0);
             }
             usuńWroga();
         }
-        if (bohater.czyJegoKolej) {
+        if (this.bohater.czyJegoKolej) {
             if (razNaRundę){
                 razNaRundę=false;
                 nowaRunda();
@@ -89,14 +85,14 @@ public class MenuWalki extends Menu{
                     for (Postać wróg : wrogowie) {
                         wróg.czyJegoKolej = true;
                     }
-                    bohater.czyJegoKolej = false;
+                    this.bohater.czyJegoKolej = false;
                 }
             } else odczekanieNaKolejneWejście--;
         }else {
-            if (!bohater.czyAtakuje){
+            if (!this.bohater.czyAtakuje){
                 boolean kontynuować = true;
                 for (Postać wróg: wrogowie){
-                    if (wróg.czyAtakuje && !bohater.czyUmiera){
+                    if (wróg.czyAtakuje && !this.bohater.czyUmiera){
 
                         kontynuować = false;
                         break;
@@ -111,11 +107,11 @@ public class MenuWalki extends Menu{
 
                                 efekt.działaniePrzyAtaku();
                             }
-                            wrogowie.get(i).zadajObrażenia(bohater, false);
+                            wrogowie.get(i).zadajObrażenia(this.bohater, false);
                             wrogowie.get(i).czyJegoKolej = false;
                             break;
                         }else if (!wrogowie.get(wrogowie.size()-1).czyJegoKolej) {
-                            bohater.czyJegoKolej = true;
+                            this.bohater.czyJegoKolej = true;
                             razNaRundę = true;
                             nowaRunda();
                         }
@@ -128,6 +124,8 @@ public class MenuWalki extends Menu{
 
     @Override
     public String[] odnów() throws IOException {
+
+
 
         ilośćWrogów=ustalIlośćWrogów(gp);
 
@@ -209,11 +207,11 @@ public class MenuWalki extends Menu{
         if (ok.cofnijWciśnięte){
             if (miejsce.ustalId() > 0){
                 //System.out.println(PołożenieWMenu.valueOf( miejsce.ustalEnumaPrzezId(miejsce.ustalId() - 1)));
-                miejsce = miejsce.valueOf( PołożenieWMenu.ustalEnumaPrzezId(miejsce.ustalId() - 1));
+                miejsce = miejsce.valueOf( PołożenieWMenuWalki.ustalEnumaPrzezId(miejsce.ustalId() - 1));
                 gp.wrogowie.get(poziomCEL).widoczny =true;
                 ustalPołożenieZaznaczenia();
                 statut[0] = "przesunięto";
-                statut[1] = PołożenieWMenu.ustalEnumaPrzezId( miejsce.ustalId());
+                statut[1] = PołożenieWMenuWalki.ustalEnumaPrzezId( miejsce.ustalId());
             }
         }
         return statut;
@@ -313,9 +311,9 @@ public class MenuWalki extends Menu{
             płótno.drawString(typAkcji.Ekwipunek.name(), obwódkaX + 10, obwódkaY + 30 + zaznaczenieWys * 2);
             płótno.drawString(typAkcji.Uciekaj.name(), obwódkaX + 10, obwódkaY + 30 + zaznaczenieWys * 3);
 
-            if (miejsce == PołożenieWMenu.WybórAkcji) {
+            if (miejsce == PołożenieWMenuWalki.WybórAkcji) {
 
-            } else if (miejsce == PołożenieWMenu.WybórCelu) {
+            } else if (miejsce == PołożenieWMenuWalki.WybórCelu) {
 
             }
 
@@ -380,7 +378,7 @@ public class MenuWalki extends Menu{
                     }
                 }
                 System.out.println(akcja);
-                if (miejsce != PołożenieWMenu.Akcja) break;
+                if (miejsce != PołożenieWMenuWalki.Akcja) break;
             }
             case Akcja:{
                 wybórTypuAkcji = 3;

@@ -15,7 +15,7 @@ public class Jednorazówki extends Erpegkraj.Grafika.Grafika{
     protected Bohater bohater;
     protected ArrayList<Postać> wrogowie;
 
-    public Jednorazówki(String nazwa, ArrayList<Postać> wrogowie, PanelGry gp){
+    public Jednorazówki(String nazwa, PanelGry gp){
         super(0,0,0,gp);
         this.nazwa = nazwa;
         this.wrogowie = wrogowie;

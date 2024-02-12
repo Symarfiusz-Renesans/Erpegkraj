@@ -1,20 +1,17 @@
 package Erpegkraj;
 
-import Erpegkraj.Efekty.Efekty;
 import Erpegkraj.Grafika.Menu;
+import Erpegkraj.Grafika.MenuGłówne;
 import Erpegkraj.Grafika.MenuWalki;
 import Erpegkraj.Jednorazówki.Jednorazówki;
 import Erpegkraj.Jednorazówki.przedmioty.*;
 import Erpegkraj.Postacie.Bohater;
-import Erpegkraj.Postacie.Bohaterowie.Krzyżowiec;
 import Erpegkraj.Postacie.Postać;
-import Erpegkraj.Postacie.Wróg;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Map;
 
 public class PanelGry extends JPanel implements Runnable{
 
@@ -34,19 +31,22 @@ public class PanelGry extends JPanel implements Runnable{
     public final Font czcionka = new Font("Judical", Font.PLAIN, 25);
 
     //Wrogowie
-    public ArrayList<Postać> wrogowie = new ArrayList<Postać>(){{
+    public ArrayList<Postać> wrogowie = new ArrayList<Postać>();
+    public ArrayList<Postać> WszyscyMożliwiWrogowie = new ArrayList<Postać>(){{
     }};
     //Wszystkie Możliwe Przedmioty
     public ArrayList<Jednorazówki> wszytkieMożliwePrzedmioty = new ArrayList<Jednorazówki>(){{
-        add(0, new napójZdrowia(wrogowie, PanelGry.this));
-        add(1, new kamień(wrogowie, PanelGry.this));
-        add(2, new trutka(wrogowie, PanelGry.this));
+        add(0, new napójZdrowia(PanelGry.this));
+        add(1, new kamień(PanelGry.this));
+        add(2, new trutka(PanelGry.this));
     }};
     //Bohater
     public Bohater bohater;
 
-    //Menu
-    Menu menu = new MenuWalki(rozmiarKafelek,ilośćSłupków, ilośćRzędów, this, oKlawiszy, wszytkieMożliwePrzedmioty);
+    //MenuGłówne
+    Menu MenuGłówne = new MenuGłówne(rozmiarKafelek,ilośćSłupków, ilośćRzędów, this, oKlawiszy);
+    //MenuWalki
+    Menu MenuWalki;
 
     public PanelGry() throws IOException {
         this.setPreferredSize(new Dimension(szerokośćOkna, wysokośćOkna));
@@ -79,13 +79,18 @@ public class PanelGry extends JPanel implements Runnable{
             ostatniRaz = tenRaz;
 
             if (delta >= 1) {
-                menu.runMenu();
-                repaint();
-                try {
-                    odnów();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
+                if (bohater == null){
+                    MenuGłówne.runMenu();
+                } else {
+                    try {
+                        MenuWalki = new MenuWalki(rozmiarKafelek,ilośćSłupków, ilośćRzędów, this, oKlawiszy, wszytkieMożliwePrzedmioty, bohater);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    MenuWalki.runMenu();
                 }
+                repaint();
+
                 delta--;
                 liczbaRamekNaSekundę ++;
             }
@@ -98,26 +103,42 @@ public class PanelGry extends JPanel implements Runnable{
     }
 
     public String[] odnów() throws IOException {
-        return menu.odnów();
+        if (bohater == null){
+            return MenuGłówne.odnów();
+        } else {
+            return MenuWalki.odnów();
+        }
     }
     public void paintComponent(Graphics graphics){
         super.paintComponent(graphics);
 
         Graphics2D płótno = (Graphics2D)graphics;
-        
-        
 
-        bohater.ustawPłótno(płótno);
-        bohater.stwórzPostać();
 
-        for (Postać wróg: wrogowie) {
-            wróg.ustawPłótno(płótno);
-            wróg.stwórzPostać();
+
+        if (bohater == null || MenuWalki == null){
+            MenuGłówne.runMenu();
+
+            MenuGłówne.ustawPłótno(płótno);
+            MenuGłówne.stwórzMenu();
+        } else {
+            bohater.ustawPłótno(płótno);
+            bohater.stwórzPostać();
+
+            for (Postać wróg: wrogowie) {
+                wróg.ustawPłótno(płótno);
+                wróg.stwórzPostać();
+            }
+
+            MenuWalki.ustawPłótno(płótno);
+            MenuWalki.stwórzMenu();
         }
 
-        menu.ustawPłótno(płótno);
-        menu.stwórzMenu();
+    }
 
+
+    public void ustawBohatera(Bohater bohater){
+        this.bohater = bohater;
     }
 
 }
