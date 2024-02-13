@@ -14,19 +14,25 @@ public class MenuGłówne extends Menu {
     protected PołożenieWMenuGłównym miejsce = PołożenieWMenuGłównym.NowaGra;
     protected Bohaterowie wybranyBohater = Bohaterowie.Krzyżowiec;
 
+    int raz = 0;
+
 
     public MenuGłówne(int rozmiar, int x, int y, PanelGry gp, ObsługiwaczKlawiszy ok) {
         super(rozmiar, x, y, gp, ok);
     }
 
     @Override
-    public void runMenu() {
-
-        try {
-            gp.ustawBohatera(new Krzyżowiec(rozmiarKafelek,ilośćSłupków, ilośćRzędów, gp));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+    public Bohater runMenu() {
+        if (raz != 1){
+            raz = 1;
+            try {
+                System.out.println("Krzyżowiec"+new Krzyżowiec(rozmiarKafelek,ilośćSłupków, ilośćRzędów, gp));
+                return new Krzyżowiec(rozmiarKafelek,ilośćSłupków, ilośćRzędów, gp);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
+        else return null;
 
     }
 

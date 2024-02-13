@@ -24,7 +24,6 @@ public class Interfejs{
 
 
 
-
         PanelGry panelGry = new PanelGry();
         okno.add(panelGry);
 

@@ -11,7 +11,6 @@ import Erpegkraj.Jednorazówki.Jednorazówki;
 import Erpegkraj.ObsługiwaczKlawiszy;
 import Erpegkraj.PanelGry;
 import Erpegkraj.Postacie.Bohater;
-import Erpegkraj.Postacie.Bohaterowie.Krzyżowiec;
 import Erpegkraj.Postacie.Postać;
 import Erpegkraj.Postacie.Wróg;
 
@@ -35,6 +34,9 @@ public class MenuWalki extends Menu{
     boolean razNaRundę = true;
 
     public ArrayList<Postać> wrogowie = new ArrayList<Postać>(){{
+        add(0, new Wróg("Ognik",0, rozmiarKafelek,ilośćSłupków, ilośćRzędów, gp));
+        add(1, new Wróg("Ognik",1, rozmiarKafelek,ilośćSłupków, ilośćRzędów, gp));
+        add(2, new Wróg("Bagiennik",2, rozmiarKafelek,ilośćSłupków, ilośćRzędów, gp));
     }};
 
     public Bohater bohater;
@@ -46,19 +48,14 @@ public class MenuWalki extends Menu{
 
         this.bohater = bohater;
 
-        wrogowie.add(0, new Wróg("Ognik",0, rozmiarKafelek,ilośćSłupków, ilośćRzędów, gp));
-        wrogowie.add(1, new Wróg("Ognik",1, rozmiarKafelek,ilośćSłupków, ilośćRzędów, gp));
-        wrogowie.add(2, new Wróg("Bagiennik",2, rozmiarKafelek,ilośćSłupków, ilośćRzędów, gp));
-
-
-
         for (Jednorazówki j: jednorazówki){
             j.ustawBohatera(bohater);
         }
+
     }
 
     @Override
-    public void runMenu() {
+    public Bohater runMenu() {
         odczekanieDomyślnegoŻyworysu = this.bohater.odnów(odczekanieDomyślnegoŻyworysu);
         if (odczekanieDomyślnegoŻyworysu == 30){
             for (Postać wróg: wrogowie){
@@ -72,7 +69,7 @@ public class MenuWalki extends Menu{
                 nowaRunda();
             }
             if (odczekanieNaKolejneWejście == 0) {
-                String[] statut = new String[0];
+                String[] statut;
                 try {
                     statut = odnów();
                 } catch (IOException e) {
@@ -113,13 +110,13 @@ public class MenuWalki extends Menu{
                         }else if (!wrogowie.get(wrogowie.size()-1).czyJegoKolej) {
                             this.bohater.czyJegoKolej = true;
                             razNaRundę = true;
-                            nowaRunda();
                         }
 
                     }
                 }
             }
         }
+        return null;
     }
 
     @Override
@@ -151,14 +148,14 @@ public class MenuWalki extends Menu{
             ilośćWrogów=ustalIlośćWrogów(gp);
             if (ok.lewoWciśnięte){
                 if (poziomCEL != ilośćWrogów-1) {
-                    gp.wrogowie.get(poziomCEL).widoczny =true;
+                    wrogowie.get(poziomCEL).widoczny =true;
                     poziomCEL++;
                     statut[0] = "przesunięto";
                 }
             }
             if (ok.prawoWciśnięte){
                 if (poziomCEL != 0) {
-                    gp.wrogowie.get(poziomCEL).widoczny =true;
+                    wrogowie.get(poziomCEL).widoczny =true;
                     poziomCEL--;
                     statut[0] = "przesunięto";
                 }
@@ -168,7 +165,7 @@ public class MenuWalki extends Menu{
             if (miejsce.ustalId() < 3) {
                 //System.out.println( PołożenieWMenu.valueOf( miejsce.ustalEnumaPrzezId( miejsce.ustalId() + 1) ) );
                 miejsce = miejsce.valueOf( miejsce.ustalEnumaPrzezId( miejsce.ustalId() + 1));
-                gp.wrogowie.get(poziomCEL).widoczny =true;
+                wrogowie.get(poziomCEL).widoczny =true;
                 ustalPołożenieZaznaczenia();
                 statut[0] = "przesunięto";
                 statut[1] = miejsce.ustalEnumaPrzezId( miejsce.ustalId());
@@ -176,25 +173,25 @@ public class MenuWalki extends Menu{
                     System.out.println(akcja);
                     switch (akcja){
                         case "Atakuj":
-                            gp.bohater.zadajObrażenia(gp.wrogowie.get(poziomCEL), false);
+                            bohater.zadajObrażenia(wrogowie.get(poziomCEL), false);
                             break;
                         case "AtakujZPremią":
-                            gp.bohater.zadajObrażenia(gp.wrogowie.get(poziomCEL), true);
+                            bohater.zadajObrażenia(wrogowie.get(poziomCEL), true);
                             break;
                         case "AtakSpecjalny":
-                            gp.bohater.ZdolnośćWyjątkowa();
+                            bohater.ZdolnośćWyjątkowa();
                             break;
                         case "Obrona":
-                            gp.bohater.dodajEfekt(new Dozbrojenie(gp), 3);
+                            bohater.dodajEfekt(new Dozbrojenie(gp), 3);
                             break;
                         case "ObronaZPremią":
-                            gp.bohater.dodajEfekt(new DozbrojeniePlus(gp), 3);
+                            bohater.dodajEfekt(new DozbrojeniePlus(gp), 3);
                             break;
                         default:
                             for (Jednorazówki j: gp.wszytkieMożliwePrzedmioty){
                                 if(Objects.equals(akcja, j.nazwa)){
                                     j.działanie(poziomCEL);
-                                    for(Map.Entry<Efekty, Integer> e: gp.bohater.efekty.entrySet()){
+                                    for(Map.Entry<Efekty, Integer> e: bohater.efekty.entrySet()){
                                         Efekty klucz = e.getKey();
 
                                         klucz.działaniePrzyUżyciuPrzedmiotu(j.nazwa);
@@ -208,7 +205,7 @@ public class MenuWalki extends Menu{
             if (miejsce.ustalId() > 0){
                 //System.out.println(PołożenieWMenu.valueOf( miejsce.ustalEnumaPrzezId(miejsce.ustalId() - 1)));
                 miejsce = miejsce.valueOf( PołożenieWMenuWalki.ustalEnumaPrzezId(miejsce.ustalId() - 1));
-                gp.wrogowie.get(poziomCEL).widoczny =true;
+                wrogowie.get(poziomCEL).widoczny =true;
                 ustalPołożenieZaznaczenia();
                 statut[0] = "przesunięto";
                 statut[1] = PołożenieWMenuWalki.ustalEnumaPrzezId( miejsce.ustalId());
@@ -220,9 +217,16 @@ public class MenuWalki extends Menu{
     @Override
     public void stwórzMenu() {
 
-        if (gp.wrogowie.size() == 0) {
+        if (wrogowie.size() == 0) {
             płótno.drawString("Wygrałeś!", obwódkaX + obwódkaSzer / 3 + 10, obwódkaY - obwódkaWys / 3 + 50);
         } else {
+            for(Postać wróg: wrogowie){
+                wróg.ustawPłótno(płótno);
+                wróg.stwórzPostać();
+            }
+            bohater.ustawPłótno(płótno);
+            bohater.stwórzPostać();
+
             płótno.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 
             płótno.setColor(Color.orange);
@@ -233,7 +237,7 @@ public class MenuWalki extends Menu{
                 płótno.setColor(Color.WHITE);
                 płótno.drawString("Runda    wrogów...", obwódkaX + obwódkaSzer / 3 + 10, obwódkaY - obwódkaWys / 3 + 50);
             } else if (wybórAkcji != -1) {
-                Postać wróg = gp.wrogowie.get(poziomCEL);
+                Postać wróg = wrogowie.get(poziomCEL);
                 if (wróg.czyCzasMigania == 0) {
                     wróg.migawka();
                     wróg.czyCzasMigania = 10;
@@ -253,7 +257,7 @@ public class MenuWalki extends Menu{
                     case 0: {
                     }
                     case 1: {
-                        for (Jednorazówki j : gp.bohater.ekwipunek) {
+                        for (Jednorazówki j : bohater.ekwipunek) {
                             płótno.drawString(j.nazwa, obwódkaX + (obwódkaSzer / 3) + 10, obwódkaY + (zaznaczenieWys * (ilośćPoziomów - 3) * (-1) + 30));
                             ilośćPoziomów--;
                         }
@@ -370,9 +374,9 @@ public class MenuWalki extends Menu{
                         break;
                     }
                     case 1:{
-                        for (int i = 3; i >= (gp.bohater.ekwipunek.size()-4)*-1 ; i--){
+                        for (int i = 3; i >= (bohater.ekwipunek.size()-4)*-1 ; i--){
                             if(i == poziom){
-                                akcja = gp.bohater.ekwipunek.get(((i-4)*-1)-1).nazwa;
+                                akcja = bohater.ekwipunek.get(((i-4)*-1)-1).nazwa;
                             }
                         }
                     }
@@ -391,7 +395,7 @@ public class MenuWalki extends Menu{
     public int ustalIlośćWrogów(PanelGry gp){
         int ilość = 0;
 
-        for (Postać wróg: gp.wrogowie){
+        for (Postać wróg: wrogowie){
             ilość++;
         }
 

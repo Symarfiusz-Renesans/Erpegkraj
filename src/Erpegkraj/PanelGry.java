@@ -44,6 +44,7 @@ public class PanelGry extends JPanel implements Runnable{
     public Bohater bohater;
 
     //MenuGłówne
+
     Menu MenuGłówne = new MenuGłówne(rozmiarKafelek,ilośćSłupków, ilośćRzędów, this, oKlawiszy);
     //MenuWalki
     Menu MenuWalki;
@@ -80,10 +81,11 @@ public class PanelGry extends JPanel implements Runnable{
 
             if (delta >= 1) {
                 if (bohater == null){
-                    MenuGłówne.runMenu();
+                    bohater = MenuGłówne.runMenu();
                 } else {
                     if (MenuWalki == null) {
                         try {
+                            System.out.println("MenuWalki");
                             MenuWalki = new MenuWalki(rozmiarKafelek, ilośćSłupków, ilośćRzędów, this, oKlawiszy, wszytkieMożliwePrzedmioty, bohater);
                         } catch (IOException e) {
                             throw new RuntimeException(e);
@@ -124,23 +126,11 @@ public class PanelGry extends JPanel implements Runnable{
             MenuGłówne.ustawPłótno(płótno);
             MenuGłówne.stwórzMenu();
         } else {
-            bohater.ustawPłótno(płótno);
-            bohater.stwórzPostać();
-
-            for (Postać wróg: wrogowie) {
-                wróg.ustawPłótno(płótno);
-                wróg.stwórzPostać();
-            }
 
             MenuWalki.ustawPłótno(płótno);
             MenuWalki.stwórzMenu();
         }
 
-    }
-
-
-    public void ustawBohatera(Bohater bohater){
-        this.bohater = bohater;
     }
 
 }
