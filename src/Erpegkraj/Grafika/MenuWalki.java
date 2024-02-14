@@ -24,6 +24,7 @@ public class MenuWalki extends Menu{
 
     protected PanelGry gp;
 
+    protected PołożenieWMenuWalki miejsce = PołożenieWMenuWalki.WybórTypuAkcji;
     protected int poziomCEL;
     protected int wybórTypuAkcji = -1;
     protected int wybórAkcji = -1;
@@ -44,6 +45,7 @@ public class MenuWalki extends Menu{
 
         this.bohater = bohater;
 
+        System.out.println(miejsce);
 
         wrogowie.add(0, new Wróg("Ognik",0, rozmiarKafelek,ilośćSłupków, ilośćRzędów, gp));
         wrogowie.add(1, new Wróg("Ognik",1, rozmiarKafelek,ilośćSłupków, ilośćRzędów, gp));
@@ -110,6 +112,7 @@ public class MenuWalki extends Menu{
                         }else if (!wrogowie.get(wrogowie.size()-1).czyJegoKolej) {
                             bohater.czyJegoKolej = true;
                             razNaRundę = true;
+                            miejsce = PołożenieWMenuWalki.WybórTypuAkcji;
                         }
 
                     }
@@ -430,5 +433,9 @@ public class MenuWalki extends Menu{
             efekt.działanieGdyUpłynieRunda();
             mapa.setValue(mapa.getValue()-1);
         }
+
+
+
+
     }
 }

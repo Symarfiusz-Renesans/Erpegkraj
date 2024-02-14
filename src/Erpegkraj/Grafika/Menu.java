@@ -10,7 +10,6 @@ import java.io.IOException;
 public abstract class Menu extends Grafika{
 
     protected ObsługiwaczKlawiszy ok;
-    protected PołożenieWMenuWalki miejsce = PołożenieWMenuWalki.WybórTypuAkcji;
 
     final int obwódkaSzer = rozmiarKafelek*(ilośćSłupków-1);
     final int obwódkaWys = rozmiarKafelek*3;
