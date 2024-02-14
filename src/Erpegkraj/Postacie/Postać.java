@@ -64,16 +64,20 @@ public abstract class Postać extends Erpegkraj.Grafika.Grafika implements Przer
 
         this.postaćX = postaćX;
         this.postaćY = postaćY;
+
     }
     public void otrzymajObrażenia(int obrażenia){
         if (!czyUniknieObrażeń()){
             czasDziałaniaEfektów(3);
             odebraneObrażenia = (obrażenia-efetkywnośćObrony());
             if (odebraneObrażenia < 0){
+                System.out.println("Ból i Cierpienie!");
                 odebraneObrażenia = 0;
             }
             życie -= odebraneObrażenia;
-        } else odebraneObrażenia = 0;
+        } else {
+            odebraneObrażenia = 0;
+        }
 
         if (życie < 0){
             życie = 0;
@@ -103,12 +107,10 @@ public abstract class Postać extends Erpegkraj.Grafika.Grafika implements Przer
         
         if(!isNull(możliwyKlucz)) {
             efekty.put(możliwyKlucz, efekty.get(możliwyKlucz) + naIle);
-            System.out.println("jeżeli");
         } else {
             jaki.ustawPostać(this);
             efekty.put(jaki, naIle);
             jaki.działaniePrzyOtrzymaniu();
-            System.out.println("w innym wypadku");
         }
     }
 
@@ -183,8 +185,11 @@ public abstract class Postać extends Erpegkraj.Grafika.Grafika implements Przer
         return ((losowaLiczba - unikUlep) <= 0);
     }
     private int efetkywnośćObrony(){
-        int losowaLiczba = (int)(Math.random()*odpornośćUlep);
-        return losowaLiczba;
+        System.out.println(odpornośćUlep);
+        double losowaLiczba = Math.random()*odpornośćUlep;
+
+        System.out.println("Losowa: "+losowaLiczba);
+        return (int)(losowaLiczba*5);
     }
 
     @Override

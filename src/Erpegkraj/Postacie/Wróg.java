@@ -32,6 +32,10 @@ public class Wróg extends Postać implements ZarządcaArkuszów {
         }
 
         maksŻycia = życie;
+        siłaUlep = siła;
+        unikUlep = unik;
+        życieUlep = maksŻycia;
+        odpornośćUlep = odporność;
 
         ustawRozmiarGracza();
     }
@@ -61,6 +65,7 @@ public class Wróg extends Postać implements ZarządcaArkuszów {
                 }
                 case "PoczątkowaSiła":{
                     siła = Integer.valueOf(mapa.get(klucz));
+                    System.out.println(siła);
                     break;
                 }
                 case "PoczątkowaObrona":{

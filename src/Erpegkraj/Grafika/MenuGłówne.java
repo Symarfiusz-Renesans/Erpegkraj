@@ -26,7 +26,6 @@ public class MenuGłówne extends Menu {
         if (raz != 1){
             raz = 1;
             try {
-                System.out.println("Krzyżowiec"+new Krzyżowiec(rozmiarKafelek,ilośćSłupków, ilośćRzędów, gp));
                 return new Krzyżowiec(rozmiarKafelek,ilośćSłupków, ilośćRzędów, gp);
             } catch (IOException e) {
                 throw new RuntimeException(e);

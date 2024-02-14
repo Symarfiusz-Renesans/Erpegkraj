@@ -30,8 +30,6 @@ public class PanelGry extends JPanel implements Runnable{
     Thread wątekGry;
     public final Font czcionka = new Font("Judical", Font.PLAIN, 25);
 
-    //Wrogowie
-    public ArrayList<Postać> wrogowie = new ArrayList<Postać>();
     public ArrayList<Postać> WszyscyMożliwiWrogowie = new ArrayList<Postać>(){{
     }};
     //Wszystkie Możliwe Przedmioty
@@ -45,9 +43,9 @@ public class PanelGry extends JPanel implements Runnable{
 
     //MenuGłówne
 
-    Menu MenuGłówne = new MenuGłówne(rozmiarKafelek,ilośćSłupków, ilośćRzędów, this, oKlawiszy);
+    public Menu MenuGłówne = new MenuGłówne(rozmiarKafelek,ilośćSłupków, ilośćRzędów, this, oKlawiszy);
     //MenuWalki
-    Menu MenuWalki;
+    public MenuWalki MenuWalki;
 
     public PanelGry() throws IOException {
         this.setPreferredSize(new Dimension(szerokośćOkna, wysokośćOkna));
@@ -85,7 +83,6 @@ public class PanelGry extends JPanel implements Runnable{
                 } else {
                     if (MenuWalki == null) {
                         try {
-                            System.out.println("MenuWalki");
                             MenuWalki = new MenuWalki(rozmiarKafelek, ilośćSłupków, ilośćRzędów, this, oKlawiszy, wszytkieMożliwePrzedmioty, bohater);
                         } catch (IOException e) {
                             throw new RuntimeException(e);

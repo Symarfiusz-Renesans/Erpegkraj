@@ -57,14 +57,14 @@ public class MenuWalki extends Menu{
 
     @Override
     public Bohater runMenu() {
-        odczekanieDomyślnegoŻyworysu = this.bohater.odnów(odczekanieDomyślnegoŻyworysu);
+        odczekanieDomyślnegoŻyworysu = bohater.odnów(odczekanieDomyślnegoŻyworysu);
         if (odczekanieDomyślnegoŻyworysu == 30){
             for (Postać wróg: wrogowie){
                 wróg.odnów(0);
             }
             usuńWroga();
         }
-        if (this.bohater.czyJegoKolej) {
+        if (bohater.czyJegoKolej) {
             if (razNaRundę){
                 razNaRundę=false;
                 nowaRunda();
@@ -83,14 +83,14 @@ public class MenuWalki extends Menu{
                     for (Postać wróg : wrogowie) {
                         wróg.czyJegoKolej = true;
                     }
-                    this.bohater.czyJegoKolej = false;
+                    bohater.czyJegoKolej = false;
                 }
             } else odczekanieNaKolejneWejście--;
         }else {
-            if (!this.bohater.czyAtakuje){
+            if (!bohater.czyAtakuje){
                 boolean kontynuować = true;
                 for (Postać wróg: wrogowie){
-                    if (wróg.czyAtakuje && !this.bohater.czyUmiera){
+                    if (wróg.czyAtakuje && !bohater.czyUmiera){
 
                         kontynuować = false;
                         break;
@@ -100,16 +100,15 @@ public class MenuWalki extends Menu{
                     for (int i = 0; i < wrogowie.size(); i++) {
                         if (wrogowie.get(i).czyJegoKolej) {
                             for (Map.Entry<Efekty,Integer> mapa: wrogowie.get(i).efekty.entrySet()) {
-                                System.out.println(mapa);
                                 Efekty efekt = mapa.getKey();
 
                                 efekt.działaniePrzyAtaku();
                             }
-                            wrogowie.get(i).zadajObrażenia(this.bohater, false);
+                            wrogowie.get(i).zadajObrażenia(bohater, false);
                             wrogowie.get(i).czyJegoKolej = false;
                             break;
                         }else if (!wrogowie.get(wrogowie.size()-1).czyJegoKolej) {
-                            this.bohater.czyJegoKolej = true;
+                            bohater.czyJegoKolej = true;
                             razNaRundę = true;
                         }
 
@@ -282,7 +281,7 @@ public class MenuWalki extends Menu{
                         break;
                     }
                 }
-                this.ilośćPoziomów = ilośćPoziomów + 1;
+                ilośćPoziomów++;
 
             } else {
                 płótno.setColor(Color.RED);
@@ -415,8 +414,7 @@ public class MenuWalki extends Menu{
     }
 
     public void nowaRunda(){
-        for(Postać w: wrogowie){
-            System.out.println(w);
+        for(Postać w: wrogowie) {
             for (Map.Entry<Efekty,Integer> mapa: w.efekty.entrySet()) {
                 System.out.println(mapa);
                 Efekty efekt = mapa.getKey();
