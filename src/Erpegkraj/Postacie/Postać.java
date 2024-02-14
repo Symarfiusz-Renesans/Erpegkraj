@@ -153,7 +153,7 @@ public abstract class Postać extends Erpegkraj.Grafika.Grafika implements Przer
         płótno.setColor(Color.GREEN);
 
         płótno.fillRect(postaćX, postaćY-30, (maksŻycia == życie)?szerokość:(int)((szerokość/maksŻycia)*życie), 20);
-        //płótno.setFont(gp.czcionka);
+        płótno.setFont(gp.czcionka);
         płótno.setColor(Color.WHITE);
         int i = 0;
         for (Map.Entry<Efekty, Integer> e: efekty.entrySet()){

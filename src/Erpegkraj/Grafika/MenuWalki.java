@@ -33,11 +33,7 @@ public class MenuWalki extends Menu{
     int odczekanieDomyślnegoŻyworysu = 30;
     boolean razNaRundę = true;
 
-    public ArrayList<Postać> wrogowie = new ArrayList<Postać>(){{
-        add(0, new Wróg("Ognik",0, rozmiarKafelek,ilośćSłupków, ilośćRzędów, gp));
-        add(1, new Wróg("Ognik",1, rozmiarKafelek,ilośćSłupków, ilośćRzędów, gp));
-        add(2, new Wróg("Bagiennik",2, rozmiarKafelek,ilośćSłupków, ilośćRzędów, gp));
-    }};
+    public ArrayList<Postać> wrogowie = new ArrayList<Postać>();
 
     public Bohater bohater;
 
@@ -47,6 +43,11 @@ public class MenuWalki extends Menu{
         this.gp = gp;
 
         this.bohater = bohater;
+
+
+        wrogowie.add(0, new Wróg("Ognik",0, rozmiarKafelek,ilośćSłupków, ilośćRzędów, gp));
+        wrogowie.add(1, new Wróg("Ognik",1, rozmiarKafelek,ilośćSłupków, ilośćRzędów, gp));
+        wrogowie.add(2, new Wróg("Bagiennik",2, rozmiarKafelek,ilośćSłupków, ilośćRzędów, gp));
 
         for (Jednorazówki j: jednorazówki){
             j.ustawBohatera(bohater);
