@@ -53,6 +53,7 @@ public class MenuWalki extends Menu{
 
         for (Jednorazówki j: jednorazówki){
             j.ustawBohatera(bohater);
+            j.ustawWrogów(wrogowie);
         }
 
     }
@@ -168,6 +169,7 @@ public class MenuWalki extends Menu{
             if (miejsce.ustalId() < 3) {
                 //System.out.println( PołożenieWMenu.valueOf( miejsce.ustalEnumaPrzezId( miejsce.ustalId() + 1) ) );
                 miejsce = miejsce.valueOf( miejsce.ustalEnumaPrzezId( miejsce.ustalId() + 1));
+                poziomCEL = ilośćWrogów-1;
                 wrogowie.get(poziomCEL).widoczny =true;
                 ustalPołożenieZaznaczenia();
                 statut[0] = "przesunięto";
@@ -219,7 +221,7 @@ public class MenuWalki extends Menu{
 
     @Override
     public void stwórzMenu() {
-
+        płótno.setFont(gp.czcionka);
         if (wrogowie.size() == 0) {
             płótno.drawString("Wygrałeś!", obwódkaX + obwódkaSzer / 3 + 10, obwódkaY - obwódkaWys / 3 + 50);
         } else {

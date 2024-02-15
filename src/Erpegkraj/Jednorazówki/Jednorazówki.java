@@ -18,12 +18,13 @@ public class Jednorazówki extends Erpegkraj.Grafika.Grafika{
     public Jednorazówki(String nazwa, PanelGry gp){
         super(0,0,0,gp);
         this.nazwa = nazwa;
-        this.wrogowie = wrogowie;
-        //System.out.println(bohater);
     }
 
     public void ustawBohatera(Bohater b){
         this.bohater = b;
+    }
+    public void ustawWrogów(ArrayList<Postać> w){
+        wrogowie = w;
     }
 
     public void działanie(int cel) throws IOException {
