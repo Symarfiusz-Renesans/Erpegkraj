@@ -6,7 +6,7 @@ import Erpegkraj.Efekty.efekty.DozbrojeniePlus;
 import Erpegkraj.Grafika.DaneWMenu.Akcje.Atak;
 import Erpegkraj.Grafika.DaneWMenu.Akcje.Obrona;
 import Erpegkraj.Grafika.DaneWMenu.PołożenieWMenuWalki;
-import Erpegkraj.Grafika.DaneWMenu.typAkcji;
+import Erpegkraj.Grafika.DaneWMenu.typAkcjiWMenuWalki;
 import Erpegkraj.Jednorazówki.Jednorazówki;
 import Erpegkraj.ObsługiwaczKlawiszy;
 import Erpegkraj.PanelGry;
@@ -59,7 +59,7 @@ public class MenuWalki extends Menu{
     }
 
     @Override
-    public Bohater runMenu() {
+    public void runMenu() {
         odczekanieDomyślnegoŻyworysu = bohater.odnów(odczekanieDomyślnegoŻyworysu);
         if (odczekanieDomyślnegoŻyworysu == 30){
             for (Postać wróg: wrogowie){
@@ -120,13 +120,10 @@ public class MenuWalki extends Menu{
                 }
             }
         }
-        return null;
     }
 
     @Override
     public String[] odnów() throws IOException {
-
-
 
         ilośćWrogów=ustalIlośćWrogów(gp);
 
@@ -295,19 +292,19 @@ public class MenuWalki extends Menu{
                 ilośćPoziomów = 0;
                 switch (poziom) {
                     case 3: {
-                        płótno.drawString(String.valueOf(typAkcji.ustalEnumaPrzezId(3)), obwódkaX + obwódkaSzer / 3 + 10, obwódkaY - obwódkaWys / 3 + 50);
+                        płótno.drawString(String.valueOf(typAkcjiWMenuWalki.ustalEnumaPrzezId(3)), obwódkaX + obwódkaSzer / 3 + 10, obwódkaY - obwódkaWys / 3 + 50);
                         break;
                     }
                     case 2: {
-                        płótno.drawString(typAkcji.ustalEnumaPrzezId(2), obwódkaX + obwódkaSzer / 3 + 10, obwódkaY - obwódkaWys / 3 + 50);
+                        płótno.drawString(typAkcjiWMenuWalki.ustalEnumaPrzezId(2), obwódkaX + obwódkaSzer / 3 + 10, obwódkaY - obwódkaWys / 3 + 50);
                         break;
                     }
                     case 1: {
-                        płótno.drawString(typAkcji.ustalEnumaPrzezId(1), obwódkaX + obwódkaSzer / 3 + 10, obwódkaY - obwódkaWys / 3 + 50);
+                        płótno.drawString(typAkcjiWMenuWalki.ustalEnumaPrzezId(1), obwódkaX + obwódkaSzer / 3 + 10, obwódkaY - obwódkaWys / 3 + 50);
                         break;
                     }
                     case 0: {
-                        płótno.drawString(typAkcji.ustalEnumaPrzezId(0), obwódkaX + obwódkaSzer / 3 + 10, obwódkaY - obwódkaWys / 3 + 50);
+                        płótno.drawString(typAkcjiWMenuWalki.ustalEnumaPrzezId(0), obwódkaX + obwódkaSzer / 3 + 10, obwódkaY - obwódkaWys / 3 + 50);
                         break;
                     }
                 }
@@ -315,10 +312,10 @@ public class MenuWalki extends Menu{
 
             płótno.setFont(gp.czcionka);
             płótno.setColor(Color.WHITE);
-            płótno.drawString(typAkcji.Atakuj.name(), obwódkaX + 10, obwódkaY + 30);
-            płótno.drawString(typAkcji.BrońSię.name(), obwódkaX + 10, obwódkaY + 30 + zaznaczenieWys);
-            płótno.drawString(typAkcji.Ekwipunek.name(), obwódkaX + 10, obwódkaY + 30 + zaznaczenieWys * 2);
-            płótno.drawString(typAkcji.Uciekaj.name(), obwódkaX + 10, obwódkaY + 30 + zaznaczenieWys * 3);
+            płótno.drawString(typAkcjiWMenuWalki.Atakuj.name(), obwódkaX + 10, obwódkaY + 30);
+            płótno.drawString(typAkcjiWMenuWalki.BrońSię.name(), obwódkaX + 10, obwódkaY + 30 + zaznaczenieWys);
+            płótno.drawString(typAkcjiWMenuWalki.Ekwipunek.name(), obwódkaX + 10, obwódkaY + 30 + zaznaczenieWys * 2);
+            płótno.drawString(typAkcjiWMenuWalki.Uciekaj.name(), obwódkaX + 10, obwódkaY + 30 + zaznaczenieWys * 3);
 
             if (miejsce == PołożenieWMenuWalki.WybórAkcji) {
 

@@ -5,10 +5,7 @@ import Erpegkraj.ZarządcaEnumów;
 import java.util.HashMap;
 
 public enum PołożenieWMenuGłównym implements ZarządcaEnumów {
-    NowaGra(0),
-    Kontynuuj(1),
-    Ustawienia(2),
-    Wyjdź(3);
+
 
     private final int id;
     PołożenieWMenuGłównym(final int id){

@@ -2,6 +2,7 @@ package Erpegkraj.Grafika;
 
 import Erpegkraj.Grafika.DaneWMenu.Bohaterowie;
 import Erpegkraj.Grafika.DaneWMenu.PołożenieWMenuGłównym;
+import Erpegkraj.Grafika.DaneWMenu.typAkcjiWMenuGłównym;
 import Erpegkraj.ObsługiwaczKlawiszy;
 import Erpegkraj.PanelGry;
 import Erpegkraj.Postacie.Bohater;
@@ -11,7 +12,7 @@ import java.io.IOException;
 
 public class MenuGłówne extends Menu {
     protected ObsługiwaczKlawiszy ok;
-    protected PołożenieWMenuGłównym miejsce = PołożenieWMenuGłównym.NowaGra;
+    protected typAkcjiWMenuGłównym miejsce = typAkcjiWMenuGłównym.NowaGra;
     protected Bohaterowie wybranyBohater = Bohaterowie.Krzyżowiec;
 
     int raz = 0;
@@ -22,21 +23,20 @@ public class MenuGłówne extends Menu {
     }
 
     @Override
-    public Bohater runMenu() {
-        if (raz != 1){
-            raz = 1;
-            try {
-                return new Krzyżowiec(rozmiarKafelek,ilośćSłupków, ilośćRzędów, gp);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
+    public void runMenu() {
+
+        try {
+            odnów();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-        else return null;
 
     }
 
     @Override
     public String[] odnów() throws IOException {
+
+        String[] statut = {"","WybórTypuAkcji"};
         return new String[0];
     }
 

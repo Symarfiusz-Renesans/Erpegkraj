@@ -79,7 +79,7 @@ public class PanelGry extends JPanel implements Runnable{
 
             if (delta >= 1) {
                 if (bohater == null){
-                    bohater = MenuGłówne.runMenu();
+                    MenuGłówne.runMenu();
                 } else {
                     if (MenuWalki == null) {
                         try {
@@ -100,14 +100,6 @@ public class PanelGry extends JPanel implements Runnable{
                 liczbaRamekNaSekundę = 0;
                 czasomierz = 0;
             }
-        }
-    }
-
-    public String[] odnów() throws IOException {
-        if (bohater == null){
-            return MenuGłówne.odnów();
-        } else {
-            return MenuWalki.odnów();
         }
     }
     public void paintComponent(Graphics graphics){

@@ -1,9 +1,7 @@
 package Erpegkraj.Grafika;
 
-import Erpegkraj.Grafika.DaneWMenu.PołożenieWMenuWalki;
 import Erpegkraj.ObsługiwaczKlawiszy;
 import Erpegkraj.PanelGry;
-import Erpegkraj.Postacie.Bohater;
 
 import java.io.IOException;
 
@@ -31,7 +29,7 @@ public abstract class Menu extends Grafika{
         this.ok = ok;
     }
 
-    public abstract Bohater runMenu();
+    public abstract void runMenu();
 
     public abstract String[] odnów() throws IOException;
     public abstract void stwórzMenu();
