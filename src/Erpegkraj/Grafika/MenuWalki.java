@@ -30,8 +30,6 @@ public class MenuWalki extends Menu{
     protected int wybórAkcji = -1;
     protected int wybórCelu = -1;
 
-    int odczekanieNaKolejneWejście = 0;
-    int odczekanieDomyślnegoŻyworysu = 30;
     boolean razNaRundę = true;
 
     public ArrayList<Postać> wrogowie = new ArrayList<Postać>();

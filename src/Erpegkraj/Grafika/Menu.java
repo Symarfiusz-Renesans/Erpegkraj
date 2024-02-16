@@ -14,6 +14,9 @@ public abstract class Menu extends Grafika{
     final int obwódkaX = (int) (rozmiarKafelek*0.5);
     final int obwódkaY = (int) (rozmiarKafelek * (ilośćRzędów-3.5));
 
+    int odczekanieNaKolejneWejście = 0;
+    int odczekanieDomyślnegoŻyworysu = 30;
+
     final int zaznaczenieSzer = obwódkaSzer/3;
     final int zaznaczenieWys = obwódkaWys/4;
     protected int zaznaczenieY = (int) (rozmiarKafelek * (ilośćRzędów-3.5));
