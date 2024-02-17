@@ -20,7 +20,7 @@ public class Krzyżowiec extends Bohater {
 
 @Override
     public void ZdolnośćWyjątkowa(){
-        for(Postać wróg: gp.MenuWalki.wrogowie){
+        for(Postać wróg: gp.menuWalki.wrogowie){
     zadajObrażenia(wróg, false);
 }
 

@@ -80,7 +80,7 @@ public abstract class Bohater extends Postać implements ZarządcaArkuszów{
     public void zdolnośćWyjątkowa() {
         switch(nazwaZdolWyj){
             case "Gniew posłannika Boga":
-                for(Postać wróg: gp.MenuWalki.wrogowie){ zadajObrażenia(wróg, false); }
+                for(Postać wróg: gp.menuWalki.wrogowie){ zadajObrażenia(wróg, false); }
                 break;
         }
     }

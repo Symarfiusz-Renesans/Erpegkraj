@@ -41,11 +41,10 @@ public class PanelGry extends JPanel implements Runnable{
     //Bohater
     public Bohater bohater;
 
-    //MenuGłówne
-
-    public Menu MenuGłówne = new MenuGłówne(rozmiarKafelek,ilośćSłupków, ilośćRzędów, this, oKlawiszy);
+    //menuGłówne
+    public MenuGłówne menuGłówne;
     //MenuWalki
-    public MenuWalki MenuWalki;
+    public MenuWalki menuWalki;
 
     public PanelGry() throws IOException {
         this.setPreferredSize(new Dimension(szerokośćOkna, wysokośćOkna));
@@ -53,6 +52,7 @@ public class PanelGry extends JPanel implements Runnable{
         this.setDoubleBuffered(true);
         this.addKeyListener(oKlawiszy);
         this.setFocusable(true);
+        menuGłówne = new MenuGłówne(rozmiarKafelek,ilośćSłupków, ilośćRzędów, this, oKlawiszy);
     }
 
     public void zacznijWątekGry(){
@@ -79,16 +79,16 @@ public class PanelGry extends JPanel implements Runnable{
 
             if (delta >= 1) {
                 if (bohater == null){
-                    MenuGłówne.runMenu();
+                    menuGłówne.runMenu();
                 } else {
-                    if (MenuWalki == null) {
+                    if (menuWalki == null) {
                         try {
-                            MenuWalki = new MenuWalki(rozmiarKafelek, ilośćSłupków, ilośćRzędów, this, oKlawiszy, wszytkieMożliwePrzedmioty, bohater);
+                            menuWalki = new MenuWalki(rozmiarKafelek, ilośćSłupków, ilośćRzędów, this, oKlawiszy, wszytkieMożliwePrzedmioty, bohater);
                         } catch (IOException e) {
                             throw new RuntimeException(e);
                         }
                     }
-                    MenuWalki.runMenu();
+                    menuWalki.runMenu();
                 }
                 repaint();
 
@@ -109,15 +109,15 @@ public class PanelGry extends JPanel implements Runnable{
 
 
 
-        if (bohater == null || MenuWalki == null){
-            MenuGłówne.runMenu();
+        if (bohater == null || menuWalki == null){
+            menuGłówne.runMenu();
 
-            MenuGłówne.ustawPłótno(płótno);
-            MenuGłówne.stwórzMenu();
+            menuGłówne.ustawPłótno(płótno);
+            menuGłówne.stwórzMenu();
         } else {
 
-            MenuWalki.ustawPłótno(płótno);
-            MenuWalki.stwórzMenu();
+            menuWalki.ustawPłótno(płótno);
+            menuWalki.stwórzMenu();
         }
 
     }
