@@ -23,6 +23,9 @@ public class PanelGry extends JPanel implements Runnable{
     final int wysokośćOkna = rozmiarKafelek * ilośćRzędów;
     final int szerokośćOkna = rozmiarKafelek * ilośćSłupków;
 
+    final int wysokośćOknaPełnoekranowego = rozmiarKafelek * ilośćRzędów;
+    final int szerokośćOknaPełnoekranowego = rozmiarKafelek * ilośćSłupków;
+
     //FPS
     int RNS = 60;
 

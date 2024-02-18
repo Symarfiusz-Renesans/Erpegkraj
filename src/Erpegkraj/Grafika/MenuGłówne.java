@@ -8,18 +8,26 @@ import Erpegkraj.ObsługiwaczKlawiszy;
 import Erpegkraj.PanelGry;
 import Erpegkraj.Postacie.Bohater;
 import Erpegkraj.Postacie.Bohaterowie.Krzyżowiec;
+import Erpegkraj.ZarządcaArkuszów;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class MenuGłówne extends Menu {
     protected PołożenieWMenuGłównym miejsce = PołożenieWMenuGłównym.WybórAkcji;
     protected Bohaterowie wybranyBohater = Bohaterowie.Krzyżowiec;
-    protected boolean czyIstniejePoprzedniaGra = false;
+    protected int ilośćBohaterów;
+    protected boolean czyIstniejePoprzedniaGra = czyIstniejePoprzedniaGra();
     protected BufferedImage logo = ImageIO.read(getClass().getResourceAsStream("/Rysy/logo/ErpegkrajLogo.png"));
+
+    protected int wybórAkcji = -1;
+    protected int wybórPodAkcji = -1;
+    protected int potwierdź = -1;
 
     int raz = 0;
 
@@ -44,7 +52,7 @@ public class MenuGłówne extends Menu {
                 throw new RuntimeException(e);
             }
             if (statut[0].equals("przesunięto")) {
-                odczekanieNaKolejneWejście = 10;
+                odczekanieNaKolejneWejście = 20;
             }
         } else {
             odczekanieNaKolejneWejście--;
@@ -60,17 +68,45 @@ public class MenuGłówne extends Menu {
         if(Objects.equals(miejsce.ustalEnumaPrzezId(miejsce.ustalId()), "WybórAkcji")){
             if(ok.góraWciśnięta){
                 if(poziom != 3){
-                    zaznaczenieY -= zaznaczenieWys;
-                    poziom++;
+                    if (!czyIstniejePoprzedniaGra && poziom == 1){
+                        poziom+=2;
+                        zaznaczenieY -= zaznaczenieWys*2;
+                    }else{
+                        poziom++;
+                        zaznaczenieY -= zaznaczenieWys;
+                    }
                     statut[0] = "przesunięto";
                 }
             }
             if (ok.dółWciśnięty){
                 if (poziom != ilośćPoziomów) {
-                    zaznaczenieY += zaznaczenieWys;
-                    poziom--;
+                    if (!czyIstniejePoprzedniaGra && poziom == 3){
+                        poziom-=2;
+                        zaznaczenieY += zaznaczenieWys*2;
+                    }else{
+                        poziom--;
+                        zaznaczenieY += zaznaczenieWys;
+                    }
                     statut[0] = "przesunięto";
                 }
+            }
+        }
+        if (ok.potwierdźWciśnięte){
+            if (miejsce.ustalId() < 2){
+                miejsce = miejsce.valueOf( miejsce.ustalEnumaPrzezId( miejsce.ustalId() + 1));
+                ustalPołożenieZaznaczenia();
+                statut[0] = "przesunięto";
+                statut[1] = miejsce.ustalEnumaPrzezId( miejsce.ustalId());
+            }
+        }
+        if (ok.cofnijWciśnięte){
+            if (miejsce.ustalId() > 0){
+                //System.out.println(PołożenieWMenu.valueOf( miejsce.ustalEnumaPrzezId(miejsce.ustalId() - 1)));
+                miejsce = miejsce.valueOf( PołożenieWMenuGłównym.ustalEnumaPrzezId(miejsce.ustalId() - 1));
+                System.out.println(miejsce.ustalId());
+                ustalPołożenieZaznaczenia();
+                statut[0] = "przesunięto";
+                statut[1] = PołożenieWMenuWalki.ustalEnumaPrzezId( miejsce.ustalId());
             }
         }
 
@@ -82,23 +118,96 @@ public class MenuGłówne extends Menu {
     public void stwórzMenu() {
         płótno.setFont(gp.czcionka);
 
-        płótno.setColor(Color.ORANGE);
-        płótno.fillRect(obwódkaX+(obwódkaSzer/3), obwódkaY, obwódkaSzer/3, obwódkaWys);
 
-        płótno.setColor(Color.RED);
-        płótno.fillRect(obwódkaX+(obwódkaSzer/3), zaznaczenieY,obwódkaSzer/3, obwódkaWys/4);
 
-        płótno.setColor(Color.WHITE);
-        płótno.drawString(typAkcjiWMenuGłównym.NowaGra.name(), obwódkaX+(obwódkaSzer/3) + 10, obwódkaY + 30);
-        płótno.drawString(typAkcjiWMenuGłównym.Kontynuuj.name(), obwódkaX +(obwódkaSzer/3)+ 10, obwódkaY + 30 + zaznaczenieWys);
-        płótno.drawString(typAkcjiWMenuGłównym.Ustawienia.name(), obwódkaX +(obwódkaSzer/3)+ 10, obwódkaY + 30 + zaznaczenieWys * 2);
-        płótno.drawString(typAkcjiWMenuGłównym.Wyjdź.name(), obwódkaX +(obwódkaSzer/3)+ 10, obwódkaY + 30 + zaznaczenieWys * 3);
+        if (wybórAkcji == -1){
+            płótno.setColor(Color.ORANGE);
+            płótno.fillRect(obwódkaX+(obwódkaSzer/3), obwódkaY, obwódkaSzer/3, obwódkaWys);
 
-        płótno.drawImage(logo, (ilośćSłupków*rozmiarKafelek-750)/2, (int) (rozmiarKafelek*0.5), null);
+            płótno.setColor(Color.RED);
+            płótno.fillRect(obwódkaX+(obwódkaSzer/3), zaznaczenieY,obwódkaSzer/3, obwódkaWys/4);
+
+            płótno.setColor(Color.WHITE);
+            płótno.drawString(typAkcjiWMenuGłównym.NowaGra.name(), obwódkaX+(obwódkaSzer/3) + 10, obwódkaY + 30);
+            if (czyIstniejePoprzedniaGra) {
+                płótno.drawString(typAkcjiWMenuGłównym.Kontynuuj.name(), obwódkaX + (obwódkaSzer / 3) + 10, obwódkaY + 30 + zaznaczenieWys);
+            }else{
+                płótno.setColor(Color.GRAY);
+                płótno.drawString(typAkcjiWMenuGłównym.Kontynuuj.name(), obwódkaX + (obwódkaSzer / 3) + 10, obwódkaY + 30 + zaznaczenieWys);
+                płótno.setColor(Color.WHITE);
+            }
+            płótno.drawString(typAkcjiWMenuGłównym.Ustawienia.name(), obwódkaX +(obwódkaSzer/3)+ 10, obwódkaY + 30 + zaznaczenieWys * 2);
+            płótno.drawString(typAkcjiWMenuGłównym.Wyjdź.name(), obwódkaX +(obwódkaSzer/3)+ 10, obwódkaY + 30 + zaznaczenieWys * 3);
+
+            płótno.drawImage(logo, (ilośćSłupków*rozmiarKafelek-750)/2, (int) (rozmiarKafelek*0.5), null);
+        } else if (wybórPodAkcji == -1) {
+            switch (wybórAkcji){
+                case 0:
+                    System.exit(0);
+                case 1:
+                    płótno.setColor(Color.ORANGE);
+                    płótno.fillRect(obwódkaX+(obwódkaSzer/3), rozmiarKafelek*(ilośćRzędów/2-1), obwódkaSzer/3, obwódkaWys/2);
+
+                    płótno.setColor(Color.RED);
+                    płótno.fillRect(obwódkaX+(obwódkaSzer/3), rozmiarKafelek*(ilośćRzędów/2-1),obwódkaSzer/3, obwódkaWys/4);
+
+                    płótno.setColor(Color.WHITE);
+                    płótno.drawString("Tryb Pełnoekranowy", obwódkaX+(obwódkaSzer/3)+10, rozmiarKafelek*(ilośćRzędów/2-1)+45);
+
+                    break;
+                case 2:
+
+                    break;
+                case 3:
+                    płótno.setColor(Color.ORANGE);
+                    płótno.fillRect(obwódkaX+(obwódkaSzer/3), (int) (rozmiarKafelek*0.5), obwódkaSzer/3, obwódkaWys/3);
+
+                    płótno.setColor(Color.WHITE);
+                    płótno.drawString("Wybierz Postać:", obwódkaX+(obwódkaSzer/3)+10, (int) (rozmiarKafelek*0.5) + 50);
+
+                    /*for (:
+                         ) {
+
+                    }*/
+                    break;
+            }
+
+        }
+
+        płótno.dispose();
     }
 
     @Override
     protected void ustalPołożenieZaznaczenia() {
+        ilośćBohaterów = ustalIlośćBohaterów();
+        switch(miejsce){
+            case WybórAkcji:{
+                zaznaczenieY = obwódkaY;
+                zaznaczenieX = obwódkaX + (obwódkaSzer / 3);
+                wybórAkcji = -1;
+                wybórPodAkcji = -1;
+                potwierdź = -1;
+                break;
+            }
+            case WybórPodakcji:{
+                wybórAkcji = poziom;
+                wybórPodAkcji = -1;
+                potwierdź = -1;
+                break;
+            }
+            case Potwierdzenie:{
+                wybórPodAkcji = poziom;
+                potwierdź = -1;
+                break;
+            }
+        }
+    }
 
+    protected int ustalIlośćBohaterów(){
+        return new File("src/Erpegkraj/Postacie/Bohaterowie").list().length;
+    }
+
+    protected boolean czyIstniejePoprzedniaGra(){
+        return new File("zasoby/poprzedniaRozgrywka").list().length != 0;
     }
 }

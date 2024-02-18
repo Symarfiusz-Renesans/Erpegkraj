@@ -1,5 +1,7 @@
 package Erpegkraj.Grafika.DaneWMenu;
 
+import Erpegkraj.Postacie.Bohater;
+import Erpegkraj.Postacie.Bohaterowie.Krzyżowiec;
 import Erpegkraj.ZarządcaEnumów;
 
 import java.util.HashMap;
