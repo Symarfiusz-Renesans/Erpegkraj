@@ -76,6 +76,18 @@ public class nowychPlikówTworzenie {
     }
 
     public static void przydzielWieleDanychBohaterów(HashMap<String,HashMap<String, String>> mapa, FileInputStream danePrzedmiotów) throws IOException {
+        int i = 0;
+        String kodEnuma = "package Erpegkraj.Grafika.DaneWMenu;\n" +
+                "\n" +
+                "import Erpegkraj.PanelGry;\n" +
+                "import Erpegkraj.Postacie.Bohater;\n" +
+                "import Erpegkraj.Postacie.Bohaterowie.*;\n" +
+                "import Erpegkraj.ZarządcaEnumów;\n" +
+                "\n" +
+                "import java.io.IOException;\n" +
+                "import java.util.HashMap;\n" +
+                "\n"+
+                "public enum Bohaterowie implements ZarządcaEnumów {\n";
 
         for (Map.Entry<String, HashMap<String, String>> m : mapa.entrySet()) {
             String klucz = m.getKey();
@@ -89,12 +101,12 @@ public class nowychPlikówTworzenie {
                     "import Erpegkraj.Postacie.Wróg;\n" +
                     "import java.io.IOException;"+
                     "\n"+
-                    "public class "+wartość.get("Nazwa")+" extends Bohater {\n" +
+                    "public class "+wartość.get("NazwaKlasy")+" extends Bohater {\n" +
                     "    public String nazwaZdolnościPasywnej = \""+wartość.get("ZdolnośćPasywna")+"\";\n" +
                     "    public String nazwaZdolnościWyjątkowej = \""+wartość.get("ZdolnośćWyjątkowa")+"\";\n" +
                     "\n" +
-                    "    public "+wartość.get("Nazwa")+"(int rozmiar, int x, int y, PanelGry gp) throws IOException {\n" +
-                    "        super(\"Krzyżowiec\", rozmiar, x, y, gp);\n" +
+                    "    public "+wartość.get("NazwaKlasy")+"(int rozmiar, int x, int y, PanelGry gp) throws IOException {\n" +
+                    "        super(\""+wartość.get("Nazwa")+"\", rozmiar, x, y, gp);\n" +
                     "    }\n"+
                     "\n" +
                     "@Override\n"+
@@ -114,7 +126,53 @@ public class nowychPlikówTworzenie {
             try(PrintWriter plikuTworzenie = new PrintWriter (new FileOutputStream(plik, false))){
                 plikuTworzenie.print(kod);
             }
+
+            kodEnuma +=  "    "+wartość.get("Nazwa")+"("+i+", new Object() {\n" +
+                    "        Erpegkraj.Postacie.Bohaterowie."+wartość.get("Nazwa")+" evaluate() {\n" +
+                    "            try {\n" +
+                    "                return new "+wartość.get("Nazwa")+"(0,0,0, null);\n" +
+                    "            } catch (IOException e) {\n" +
+                    "                throw new RuntimeException(e);\n" +
+                    "            }\n" +
+                    "        }\n" +
+                    "    }.evaluate()),\n";
+            i++;
         }
+        kodEnuma+=";\n" +
+                "    private final int id;\n" +
+                "    private final Bohater bohater;\n" +
+                "    Bohaterowie(final int id, Bohater bohater){\n" +
+                "        this.id = id;\n" +
+                "        this.bohater = bohater;\n" +
+                "    }\n" +
+                "\n" +
+                "    private static final HashMap<Integer, String> słownik;\n" +
+                "    static{\n" +
+                "        słownik = new HashMap<Integer, String>();\n" +
+                "        for (Bohaterowie typ: Bohaterowie.values()) {\n" +
+                "            słownik.put(typ.id, typ.name());\n" +
+                "        }\n" +
+                "    }\n" +
+                "\n" +
+                "    @Override\n" +
+                "    public int ustalId(){\n" +
+                "        return id;\n" +
+                "    }\n" +
+                "\n" +
+                "    public static String ustalEnumaPrzezId(int id) {\n" +
+                "        return słownik.get(id);\n" +
+                "    }\n" +
+                "\n" +
+                "    public  Bohater ustalBohatera() {\n" +
+                "        return bohater;}" +
+                "}";
+
+        File plik = new File("src/Erpegkraj/Grafika/DaneWMenu/Bohaterowie.java");
+        plik.createNewFile();
+        try(PrintWriter plikuTworzenie = new PrintWriter (new FileOutputStream(plik, false))){
+            plikuTworzenie.print(kodEnuma);
+        }
+
     }
 
     public static void przydzielWieleDanychEfektów(HashMap<String,HashMap<String, String>> mapa) throws IOException {

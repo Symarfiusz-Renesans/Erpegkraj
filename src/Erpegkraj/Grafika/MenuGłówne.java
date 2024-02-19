@@ -20,14 +20,17 @@ import java.util.Objects;
 
 public class MenuGłówne extends Menu {
     protected PołożenieWMenuGłównym miejsce = PołożenieWMenuGłównym.WybórAkcji;
-    protected Bohaterowie wybranyBohater = Bohaterowie.Krzyżowiec;
     protected int ilośćBohaterów;
+    protected ArrayList<Bohaterowie> wszyscyBohaterowie;
+    protected Bohater wybranyBohater = Bohaterowie.Krzyżowiec.ustalBohatera();
     protected boolean czyIstniejePoprzedniaGra = czyIstniejePoprzedniaGra();
     protected BufferedImage logo = ImageIO.read(getClass().getResourceAsStream("/Rysy/logo/ErpegkrajLogo.png"));
 
     protected int wybórAkcji = -1;
     protected int wybórPodAkcji = -1;
     protected int potwierdź = -1;
+
+    protected int poziomBohatera = 0;
 
     int raz = 0;
 
@@ -36,6 +39,13 @@ public class MenuGłówne extends Menu {
         super(rozmiar, x, y, gp, ok);
         logo = Przerozmierzacz.przerozmierzanie(logo, 750, 400);
         System.out.println(ilośćSłupków*rozmiarKafelek);
+        ilośćBohaterów = ustalIlośćBohaterów();
+        wszyscyBohaterowie = new ArrayList<>(ilośćBohaterów);
+
+        for (Bohaterowie bohater:Bohaterowie.values()) {
+            wszyscyBohaterowie.add(bohater);
+            System.out.println(bohater);
+        }
     }
 
     @Override
@@ -91,9 +101,24 @@ public class MenuGłówne extends Menu {
                 }
             }
         }
+        if (Objects.equals(miejsce.ustalEnumaPrzezId(miejsce.ustalId()), "WybórPodakcji")) {
+            if(ok.prawoWciśnięte){
+                if(poziomBohatera != ilośćBohaterów-1){
+                    poziomBohatera++;
+                    statut[0] = "przesunięto";
+                }
+            }
+            if(ok.lewoWciśnięte){
+                if(poziomBohatera != 0){
+                    poziomBohatera--;
+                    statut[0] = "przesunięto";
+                }
+            }
+        }
         if (ok.potwierdźWciśnięte){
             if (miejsce.ustalId() < 2){
                 miejsce = miejsce.valueOf( miejsce.ustalEnumaPrzezId( miejsce.ustalId() + 1));
+                System.out.println(miejsce);
                 ustalPołożenieZaznaczenia();
                 statut[0] = "przesunięto";
                 statut[1] = miejsce.ustalEnumaPrzezId( miejsce.ustalId());
@@ -101,9 +126,7 @@ public class MenuGłówne extends Menu {
         }
         if (ok.cofnijWciśnięte){
             if (miejsce.ustalId() > 0){
-                //System.out.println(PołożenieWMenu.valueOf( miejsce.ustalEnumaPrzezId(miejsce.ustalId() - 1)));
                 miejsce = miejsce.valueOf( PołożenieWMenuGłównym.ustalEnumaPrzezId(miejsce.ustalId() - 1));
-                System.out.println(miejsce.ustalId());
                 ustalPołożenieZaznaczenia();
                 statut[0] = "przesunięto";
                 statut[1] = PołożenieWMenuWalki.ustalEnumaPrzezId( miejsce.ustalId());
@@ -159,19 +182,30 @@ public class MenuGłówne extends Menu {
 
                     break;
                 case 3:
+                    int początekX = ((rozmiarKafelek*ilośćSłupków)-(ilośćBohaterów*50+(ilośćBohaterów-1)*20))/2;
+                    int początekY = (int) (rozmiarKafelek * (ilośćRzędów-1));
+
                     płótno.setColor(Color.ORANGE);
                     płótno.fillRect(obwódkaX+(obwódkaSzer/3), (int) (rozmiarKafelek*0.5), obwódkaSzer/3, obwódkaWys/3);
 
                     płótno.setColor(Color.WHITE);
                     płótno.drawString("Wybierz Postać:", obwódkaX+(obwódkaSzer/3)+10, (int) (rozmiarKafelek*0.5) + 50);
 
-                    /*for (:
-                         ) {
+                    for (int i = 0; i < ilośćBohaterów; i++) {
 
-                    }*/
+                        płótno.setColor(Color.ORANGE);
+                        płótno.fillRect(początekX + i*70, początekY,50,50);
+
+                        płótno.setColor(Color.RED);
+                        płótno.fillRect(początekX + poziomBohatera*70, początekY,50,50);
+
+
+                    }
                     break;
             }
 
+        } else if (potwierdź == -1){
+            gp.bohater = wybranyBohater;
         }
     }
 
@@ -194,6 +228,7 @@ public class MenuGłówne extends Menu {
                 break;
             }
             case Potwierdzenie:{
+                wybranyBohater = wszyscyBohaterowie.get(poziomBohatera).ustalBohatera();
                 wybórPodAkcji = poziom;
                 potwierdź = -1;
                 break;
@@ -202,7 +237,7 @@ public class MenuGłówne extends Menu {
     }
 
     protected int ustalIlośćBohaterów(){
-        return new File("src/Erpegkraj/Postacie/Bohaterowie").list().length;
+        return Bohaterowie.values().length;
     }
 
     protected boolean czyIstniejePoprzedniaGra(){
