@@ -33,9 +33,9 @@ public abstract class Bohater extends Postać implements ZarządcaArkuszów{
 
         przydzielDane(ZarządcaArkuszów.podzielDane(ZarządcaArkuszów.przeczytajWierszArkusza(daneBohatera, "Bohaterowie", nazwa)));
 
+        /*ekwipunek.add(gp.wszytkieMożliwePrzedmioty.get(1));
         ekwipunek.add(gp.wszytkieMożliwePrzedmioty.get(1));
-        ekwipunek.add(gp.wszytkieMożliwePrzedmioty.get(1));
-        ekwipunek.add(gp.wszytkieMożliwePrzedmioty.get(2));
+        ekwipunek.add(gp.wszytkieMożliwePrzedmioty.get(2));*/
 
         for (Uzbrojenie u : uzbrojenie){
             u.ustalMoc(this);

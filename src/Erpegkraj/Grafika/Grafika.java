@@ -21,4 +21,5 @@ public abstract class Grafika {
     public void ustawPłótno(Graphics2D płótno){
         this.płótno = płótno;
     }
+    public void ustawPanelGry(PanelGry gp){this.gp = gp;}
 }

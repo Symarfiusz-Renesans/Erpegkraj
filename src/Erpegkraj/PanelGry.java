@@ -10,6 +10,7 @@ import Erpegkraj.Postacie.Postać;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -20,11 +21,14 @@ public class PanelGry extends JPanel implements Runnable{
 
     final int ilośćSłupków = 16;
     final int ilośćRzędów = 9;
+    //Okienko
     final int wysokośćOkna = rozmiarKafelek * ilośćRzędów;
     final int szerokośćOkna = rozmiarKafelek * ilośćSłupków;
-
-    final int wysokośćOknaPełnoekranowego = rozmiarKafelek * ilośćRzędów;
-    final int szerokośćOknaPełnoekranowego = rozmiarKafelek * ilośćSłupków;
+    //Pełnoekranowy
+    int wysokośćOknaPełnoekranowego = wysokośćOkna;
+    int szerokośćOknaPełnoekranowego = szerokośćOkna;
+    BufferedImage tymczasoweOkno;
+    Graphics2D płótno;
 
     //FPS
     int RNS = 60;
@@ -55,10 +59,16 @@ public class PanelGry extends JPanel implements Runnable{
         this.setDoubleBuffered(true);
         this.addKeyListener(oKlawiszy);
         this.setFocusable(true);
+
         menuGłówne = new MenuGłówne(rozmiarKafelek,ilośćSłupków, ilośćRzędów, this, oKlawiszy);
     }
-
+    public void przygotujGrę(){
+        tymczasoweOkno = new BufferedImage(szerokośćOkna, wysokośćOkna, BufferedImage.TYPE_INT_ARGB);
+        płótno = (Graphics2D)tymczasoweOkno.getGraphics();
+        ustawTrybPełnoekranowy();
+    }
     public void zacznijWątekGry(){
+
         wątekGry = new Thread(this);
         wątekGry.start();
     }
@@ -85,6 +95,7 @@ public class PanelGry extends JPanel implements Runnable{
                     menuGłówne.runMenu();
                 } else {
                     if (menuWalki == null) {
+                        bohater.ustawPanelGry(this);
                         try {
                             menuWalki = new MenuWalki(rozmiarKafelek, ilośćSłupków, ilośćRzędów, this, oKlawiszy, wszytkieMożliwePrzedmioty, bohater);
                         } catch (IOException e) {
@@ -93,7 +104,9 @@ public class PanelGry extends JPanel implements Runnable{
                     }
                     menuWalki.runMenu();
                 }
-                repaint();
+                //repaint();
+                rysujDoTymczasowegoOkna();
+                rysujDoOkna();
 
                 delta--;
                 liczbaRamekNaSekundę ++;
@@ -105,12 +118,35 @@ public class PanelGry extends JPanel implements Runnable{
             }
         }
     }
-    public void paintComponent(Graphics graphics){
+    public void rysujDoTymczasowegoOkna(){
+        płótno.setColor(Color.BLACK);
+        płótno.fillRect(0,0,szerokośćOkna,wysokośćOkna);
+        if (bohater == null || menuWalki == null){
+            menuGłówne.runMenu();
+            menuGłówne.stwórzMenu(płótno);
+        } else {
+            menuWalki.stwórzMenu(płótno);
+        }
+    }
+    public void rysujDoOkna(){
+        Graphics g = getGraphics();
+        g.drawImage(tymczasoweOkno, 0, 0,szerokośćOknaPełnoekranowego, wysokośćOknaPełnoekranowego, null);
+        g.dispose();
+    }
+    public void ustawTrybPełnoekranowy(){
+        //pobranie rozmiaru okna
+        GraphicsEnvironment środowisko = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice urządzenie = środowisko.getDefaultScreenDevice();
+        urządzenie.setFullScreenWindow(Interfejs.okno);
+        szerokośćOknaPełnoekranowego = Interfejs.okno.getWidth();
+        wysokośćOknaPełnoekranowego = Interfejs.okno.getHeight();
+
+        Interfejs.ustawOkno(true);
+    }
+
+    /*public void paintComponent(Graphics graphics){
         super.paintComponent(graphics);
-
         Graphics2D płótno = (Graphics2D)graphics;
-
-
 
         if (bohater == null || menuWalki == null){
             menuGłówne.runMenu();
@@ -123,6 +159,6 @@ public class PanelGry extends JPanel implements Runnable{
             menuWalki.stwórzMenu();
         }
 
-    }
+    }*/
 
 }

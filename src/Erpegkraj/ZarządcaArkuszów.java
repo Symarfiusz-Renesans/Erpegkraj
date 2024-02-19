@@ -90,7 +90,7 @@ public interface ZarządcaArkuszów {
                 String[] podzielonaDana = dana.split("#");
                 if (j == 0){
                     if(Objects.equals(podzielonaDana.length, 1)) break;
-                    if (Objects.equals(podzielonaDana[1], "Łotr") || Objects.equals(podzielonaDana[1], "Wołchw") || Objects.equals(podzielonaDana[1], "Kupiec") || Objects.equals(podzielonaDana[1], "Boski Sędzia" )) break;
+                    if (Objects.equals(podzielonaDana[1], "Wołchw") || Objects.equals(podzielonaDana[1], "Kupiec") || Objects.equals(podzielonaDana[1], "Boski Sędzia" )) break;
                     podział.put(podzielonaDana[1], new HashMap<String, String>());
                     klucz = podzielonaDana[1];
                     j++;
