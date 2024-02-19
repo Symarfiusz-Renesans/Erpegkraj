@@ -3,6 +3,7 @@ package Erpegkraj.Grafika;
 import Erpegkraj.ObsługiwaczKlawiszy;
 import Erpegkraj.PanelGry;
 
+import java.awt.*;
 import java.io.IOException;
 
 public abstract class Menu extends Grafika{
@@ -35,7 +36,7 @@ public abstract class Menu extends Grafika{
     public abstract void runMenu();
 
     public abstract String[] odnów() throws IOException;
-    public abstract void stwórzMenu();
+    public abstract void stwórzMenu(Graphics2D płótno);
 
     protected abstract void ustalPołożenieZaznaczenia();
 }

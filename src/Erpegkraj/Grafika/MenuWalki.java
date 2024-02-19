@@ -215,7 +215,7 @@ public class MenuWalki extends Menu{
     }
 
     @Override
-    public void stwórzMenu() {
+    public void stwórzMenu(Graphics2D płótno) {
         płótno.setFont(gp.czcionka);
         if (wrogowie.size() == 0) {
             płótno.drawString("Wygrałeś!", obwódkaX + obwódkaSzer / 3 + 10, obwódkaY - obwódkaWys / 3 + 50);
@@ -320,8 +320,6 @@ public class MenuWalki extends Menu{
             } else if (miejsce == PołożenieWMenuWalki.WybórCelu) {
 
             }
-
-            płótno.dispose();
         }
     }
 

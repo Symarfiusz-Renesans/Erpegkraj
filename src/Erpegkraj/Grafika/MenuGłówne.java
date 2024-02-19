@@ -115,7 +115,7 @@ public class MenuGłówne extends Menu {
     }
 
     @Override
-    public void stwórzMenu() {
+    public void stwórzMenu(Graphics2D płótno) {
         płótno.setFont(gp.czcionka);
 
 
@@ -173,8 +173,6 @@ public class MenuGłówne extends Menu {
             }
 
         }
-
-        płótno.dispose();
     }
 
     @Override
