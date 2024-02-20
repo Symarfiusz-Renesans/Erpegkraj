@@ -51,9 +51,7 @@ public class MenuGłówne extends Menu {
     @Override
     public void runMenu() {
 
-        if (odczekanieDomyślnegoŻyworysu == 30){
-
-        }
+        odczekanieDomyślnegoŻyworysu=wybranyBohater.odnów(odczekanieDomyślnegoŻyworysu);
         if(odczekanieNaKolejneWejście == 0) {
             String[] statut;
             try {
@@ -105,12 +103,14 @@ public class MenuGłówne extends Menu {
             if(ok.prawoWciśnięte){
                 if(poziomBohatera != ilośćBohaterów-1){
                     poziomBohatera++;
+                    wybranyBohater = wszyscyBohaterowie.get(poziomBohatera).ustalBohatera();
                     statut[0] = "przesunięto";
                 }
             }
             if(ok.lewoWciśnięte){
                 if(poziomBohatera != 0){
                     poziomBohatera--;
+                    wybranyBohater = wszyscyBohaterowie.get(poziomBohatera).ustalBohatera();
                     statut[0] = "przesunięto";
                 }
             }
@@ -190,6 +190,7 @@ public class MenuGłówne extends Menu {
 
                     płótno.setColor(Color.WHITE);
                     płótno.drawString("Wybierz Postać:", obwódkaX+(obwódkaSzer/3)+10, (int) (rozmiarKafelek*0.5) + 50);
+                    płótno.drawString(wybranyBohater.nazwa,obwódkaX+(obwódkaSzer/3)+10, (int) (rozmiarKafelek*1.25) + 75);
 
                     for (int i = 0; i < ilośćBohaterów; i++) {
 
@@ -199,6 +200,9 @@ public class MenuGłówne extends Menu {
                         płótno.setColor(Color.RED);
                         płótno.fillRect(początekX + poziomBohatera*70, początekY,50,50);
 
+                        wybranyBohater.ustawPłótno(płótno);
+                        wybranyBohater.ustawPanelGry(gp);
+                        wybranyBohater.stwórzPostać();
 
                     }
                     break;
@@ -228,7 +232,6 @@ public class MenuGłówne extends Menu {
                 break;
             }
             case Potwierdzenie:{
-                wybranyBohater = wszyscyBohaterowie.get(poziomBohatera).ustalBohatera();
                 wybórPodAkcji = poziom;
                 potwierdź = -1;
                 break;
