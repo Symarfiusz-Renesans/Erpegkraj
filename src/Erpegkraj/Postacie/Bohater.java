@@ -19,6 +19,9 @@ public abstract class Bohater extends Postać implements ZarządcaArkuszów{
     protected int skupienie, premiaBroni, premiaTarczy;
     protected String nazwaZdolWyj, nazwaZdolPas;
 
+    protected int[] położeniePostaciWMenuWalki = {150,125};
+    protected int[] położeniePostaciWMenuGłównym = {525, 250};
+
     protected FileInputStream daneBohatera = new FileInputStream("zasoby/Dane/Dane.xlsx");
 
     ArrayList<typyUzbrojenia> typyUzbrojenia = new ArrayList<typyUzbrojenia>(4);
@@ -28,7 +31,7 @@ public abstract class Bohater extends Postać implements ZarządcaArkuszów{
 
 
     public Bohater(String nazwa,int rozmiar, int x, int y, PanelGry gp) throws IOException {
-        super(rozmiar, x, y, gp, 150,125, 155, 175);
+        super(rozmiar,0,0, gp, x, y, 155, 175);
         this.skupienie = 0;
 
         przydzielDane(ZarządcaArkuszów.podzielDane(ZarządcaArkuszów.przeczytajWierszArkusza(daneBohatera, "Bohaterowie", nazwa)));
@@ -150,4 +153,15 @@ public abstract class Bohater extends Postać implements ZarządcaArkuszów{
     public abstract void ZdolnośćPasywna();
 
     public abstract void ZdolnośćWyjątkowa();
+
+    public void zmieńPołożeniePostaci(int naCo){
+        switch (naCo){
+            case 0:
+                ustawPołożeniePostaci(położeniePostaciWMenuGłównym);
+                break;
+            case 1:
+                ustawPołożeniePostaci(położeniePostaciWMenuWalki);
+                break;
+        }
+    }
 }

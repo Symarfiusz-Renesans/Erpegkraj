@@ -91,6 +91,8 @@ public class PanelGry extends JPanel implements Runnable{
             ostatniRaz = tenRaz;
 
             if (delta >= 1) {
+
+                System.out.println(rozmiarKafelek*ilośćSłupków/2+" "+rozmiarKafelek*ilośćRzędów/2);
                 if (bohater == null){
                     menuGłówne.runMenu();
                 } else {

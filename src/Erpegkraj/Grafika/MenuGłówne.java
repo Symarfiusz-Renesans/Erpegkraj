@@ -202,6 +202,7 @@ public class MenuGłówne extends Menu {
 
                         wybranyBohater.ustawPłótno(płótno);
                         wybranyBohater.ustawPanelGry(gp);
+                        wybranyBohater.zmieńPołożeniePostaci(0);
                         wybranyBohater.stwórzPostać();
 
                     }

@@ -215,4 +215,9 @@ public abstract class Postać extends Erpegkraj.Grafika.Grafika implements Przer
             if (wartość == 0) efekty.remove(klucz, wartość);
         }
     }
+
+    public void ustawPołożeniePostaci(int[] położenie){
+        postaćX = położenie[0];
+        postaćY = położenie[1];
+    }
 }

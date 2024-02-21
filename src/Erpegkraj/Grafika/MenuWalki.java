@@ -42,6 +42,7 @@ public class MenuWalki extends Menu{
         this.gp = gp;
 
         this.bohater = bohater;
+        bohater.zmieńPołożeniePostaci(1);
 
         System.out.println(miejsce);
 
