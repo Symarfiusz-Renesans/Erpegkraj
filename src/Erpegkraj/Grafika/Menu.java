@@ -3,7 +3,9 @@ package Erpegkraj.Grafika;
 import Erpegkraj.ObsługiwaczKlawiszy;
 import Erpegkraj.PanelGry;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 public abstract class Menu extends Grafika{
@@ -28,9 +30,18 @@ public abstract class Menu extends Grafika{
     protected int poziom = 3;
     protected String akcja = "";
 
+    protected BufferedImage tło;
+    protected BufferedImage obwódka;
+
     public Menu(int rozmiar, int x, int y, PanelGry gp, ObsługiwaczKlawiszy ok) {
         super(rozmiar, x, y, gp);
         this.ok = ok;
+        try {
+            tło = ImageIO.read(getClass().getResourceAsStream("/Rysy/tło/las.png"));
+            obwódka = ImageIO.read(getClass().getResourceAsStream("/Rysy/obwódki/MenuWalki.png"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public abstract void runMenu();

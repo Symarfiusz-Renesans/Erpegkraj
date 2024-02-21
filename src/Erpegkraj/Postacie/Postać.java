@@ -71,7 +71,6 @@ public abstract class Postać extends Erpegkraj.Grafika.Grafika implements Przer
             czasDziałaniaEfektów(3);
             odebraneObrażenia = (obrażenia-efetkywnośćObrony());
             if (odebraneObrażenia < 0){
-                System.out.println("Ból i Cierpienie!");
                 odebraneObrażenia = 0;
             }
             życie -= odebraneObrażenia;
@@ -185,7 +184,6 @@ public abstract class Postać extends Erpegkraj.Grafika.Grafika implements Przer
         return ((losowaLiczba - unikUlep) <= 0);
     }
     private int efetkywnośćObrony(){
-        System.out.println(odpornośćUlep);
         double losowaLiczba = Math.random()*odpornośćUlep;
 
         System.out.println("Losowa: "+losowaLiczba);

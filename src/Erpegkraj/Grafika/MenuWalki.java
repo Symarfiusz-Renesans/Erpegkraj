@@ -15,6 +15,7 @@ import Erpegkraj.Postacie.Postać;
 import Erpegkraj.Postacie.Wróg;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
@@ -218,6 +219,7 @@ public class MenuWalki extends Menu{
     @Override
     public void stwórzMenu(Graphics2D płótno) {
         płótno.setFont(gp.czcionka);
+        płótno.drawImage(tło, 0, 0, null);
         if (wrogowie.size() == 0) {
             płótno.drawString("Wygrałeś!", obwódkaX + obwódkaSzer / 3 + 10, obwódkaY - obwódkaWys / 3 + 50);
         } else {
@@ -233,7 +235,6 @@ public class MenuWalki extends Menu{
             płótno.setColor(Color.orange);
             płótno.fillRect(obwódkaX, obwódkaY, obwódkaSzer, obwódkaWys);
             płótno.fillRect(obwódkaX + obwódkaSzer / 3, obwódkaY - zaznaczenieWys, zaznaczenieSzer, zaznaczenieWys);
-
             if (wybórCelu != -1) {
                 płótno.setColor(Color.WHITE);
                 płótno.drawString("Runda    wrogów...", obwódkaX + obwódkaSzer / 3 + 10, obwódkaY - obwódkaWys / 3 + 50);
@@ -309,6 +310,8 @@ public class MenuWalki extends Menu{
                 }
             }
 
+
+            płótno.drawImage(obwódka, obwódkaX-25, obwódkaY-25, null);
             płótno.setFont(gp.czcionka);
             płótno.setColor(Color.WHITE);
             płótno.drawString(typAkcjiWMenuWalki.Atakuj.name(), obwódkaX + 10, obwódkaY + 30);
@@ -415,7 +418,6 @@ public class MenuWalki extends Menu{
     public void nowaRunda(){
         for(Postać w: wrogowie) {
             for (Map.Entry<Efekty,Integer> mapa: w.efekty.entrySet()) {
-                System.out.println(mapa);
                 Efekty efekt = mapa.getKey();
 
                 efekt.działanieGdyUpłynieRunda();

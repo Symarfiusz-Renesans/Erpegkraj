@@ -19,8 +19,8 @@ public class PanelGry extends JPanel implements Runnable{
     //Ustawienia okna
     public final int rozmiarKafelek = 75;
 
-    final int ilośćSłupków = 16;
-    final int ilośćRzędów = 9;
+    final public int ilośćSłupków = 16;
+    final public int ilośćRzędów = 9;
     //Okienko
     final int wysokośćOkna = rozmiarKafelek * ilośćRzędów;
     final int szerokośćOkna = rozmiarKafelek * ilośćSłupków;
@@ -91,8 +91,6 @@ public class PanelGry extends JPanel implements Runnable{
             ostatniRaz = tenRaz;
 
             if (delta >= 1) {
-
-                System.out.println(rozmiarKafelek*ilośćSłupków/2+" "+rozmiarKafelek*ilośćRzędów/2);
                 if (bohater == null){
                     menuGłówne.runMenu();
                 } else {
