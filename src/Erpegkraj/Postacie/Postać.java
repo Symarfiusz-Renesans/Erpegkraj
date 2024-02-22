@@ -111,6 +111,8 @@ public abstract class Postać extends Erpegkraj.Grafika.Grafika implements Przer
             efekty.put(jaki, naIle);
             jaki.działaniePrzyOtrzymaniu();
         }
+
+        System.out.println(jaki.ikona.getSource());
     }
 
     public void ustawRozmiarGracza(){

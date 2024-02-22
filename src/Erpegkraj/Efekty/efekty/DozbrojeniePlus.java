@@ -9,7 +9,7 @@ import java.util.HashMap;
 public class DozbrojeniePlus extends Efekty {
 
     public DozbrojeniePlus(PanelGry gp) throws IOException {
-        super("DozbrojeniePlus", gp, "efekty/Dozbrojenie.png");
+        super("DozbrojeniePlus", gp, "efekty/DozbrojeniePlus.png");
     }
 @Override
 public void działaniePrzyOtrzymaniu(){   postać.odpornośćUlep = postać.odporność+5;
