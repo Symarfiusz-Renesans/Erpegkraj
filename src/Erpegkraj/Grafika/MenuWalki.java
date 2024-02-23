@@ -221,6 +221,7 @@ public class MenuWalki extends Menu{
         płótno.setFont(gp.czcionka);
         płótno.drawImage(tło, 0, 0, null);
         if (wrogowie.size() == 0) {
+            płótno.setColor(Color.WHITE);
             płótno.drawString("Wygrałeś!", obwódkaX + obwódkaSzer / 3 + 10, obwódkaY - obwódkaWys / 3 + 50);
         } else {
             for(Postać wróg: wrogowie){
@@ -234,7 +235,7 @@ public class MenuWalki extends Menu{
 
             płótno.setColor(Color.orange);
             płótno.fillRect(obwódkaX, obwódkaY, obwódkaSzer, obwódkaWys);
-            płótno.fillRect(obwódkaX + obwódkaSzer / 3, obwódkaY - zaznaczenieWys, zaznaczenieSzer, zaznaczenieWys);
+            płótno.fillRect(obwódkaX + obwódkaSzer / 3, obwódkaY - zaznaczenieWys-15, zaznaczenieSzer, zaznaczenieWys);
             if (wybórCelu != -1) {
                 płótno.setColor(Color.WHITE);
                 płótno.drawString("Runda    wrogów...", obwódkaX + obwódkaSzer / 3 + 10, obwódkaY - obwódkaWys / 3 + 50);
@@ -311,13 +312,14 @@ public class MenuWalki extends Menu{
             }
 
 
-            płótno.drawImage(obwódka, obwódkaX-25, obwódkaY-25, null);
             płótno.setFont(gp.czcionka);
             płótno.setColor(Color.WHITE);
             płótno.drawString(typAkcjiWMenuWalki.Atakuj.name(), obwódkaX + 10, obwódkaY + 30);
             płótno.drawString(typAkcjiWMenuWalki.BrońSię.name(), obwódkaX + 10, obwódkaY + 30 + zaznaczenieWys);
             płótno.drawString(typAkcjiWMenuWalki.Ekwipunek.name(), obwódkaX + 10, obwódkaY + 30 + zaznaczenieWys * 2);
             płótno.drawString(typAkcjiWMenuWalki.Uciekaj.name(), obwódkaX + 10, obwódkaY + 30 + zaznaczenieWys * 3);
+
+            płótno.drawImage(obwódka, obwódkaX-25, obwódkaY-80, null);
 
             if (miejsce == PołożenieWMenuWalki.WybórAkcji) {
 

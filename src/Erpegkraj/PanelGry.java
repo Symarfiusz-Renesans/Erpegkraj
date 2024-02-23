@@ -119,7 +119,7 @@ public class PanelGry extends JPanel implements Runnable{
         }
     }
     public void rysujDoTymczasowegoOkna(){
-        płótno.setColor(Color.BLACK);
+        płótno.setColor(Color.CYAN);
         płótno.fillRect(0,0,szerokośćOkna,wysokośćOkna);
         if (bohater == null || menuWalki == null){
             menuGłówne.runMenu();

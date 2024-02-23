@@ -19,7 +19,7 @@ public abstract class Bohater extends Postać implements ZarządcaArkuszów{
     protected int skupienie, premiaBroni, premiaTarczy;
     protected String nazwaZdolWyj, nazwaZdolPas;
 
-    protected int[] położeniePostaciWMenuWalki = {150,150};
+    protected int[] położeniePostaciWMenuWalki = {150,160};
     protected int[] położeniePostaciWMenuGłównym = {525, 250};
 
     protected FileInputStream daneBohatera = new FileInputStream("zasoby/Dane/Dane.xlsx");

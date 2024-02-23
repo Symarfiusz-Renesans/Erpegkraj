@@ -15,6 +15,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -25,6 +26,7 @@ public class MenuGłówne extends Menu {
     protected Bohater wybranyBohater = Bohaterowie.Krzyżowiec.ustalBohatera();
     protected boolean czyIstniejePoprzedniaGra = czyIstniejePoprzedniaGra();
     protected BufferedImage logo = ImageIO.read(getClass().getResourceAsStream("/Rysy/logo/ErpegkrajLogo.png"));
+    protected BufferedImage obwódka = ImageIO.read(getClass().getResourceAsStream("/Rysy/obwódki/MenuGłówne.png"));
 
     protected int wybórAkcji = -1;
     protected int wybórPodAkcji = -1;
@@ -140,6 +142,7 @@ public class MenuGłówne extends Menu {
     @Override
     public void stwórzMenu(Graphics2D płótno) {
         płótno.setFont(gp.czcionka);
+        płótno.drawImage(tło, 0, 0, null);
 
 
 
@@ -151,18 +154,19 @@ public class MenuGłówne extends Menu {
             płótno.fillRect(obwódkaX+(obwódkaSzer/3), zaznaczenieY,obwódkaSzer/3, obwódkaWys/4);
 
             płótno.setColor(Color.WHITE);
-            płótno.drawString(typAkcjiWMenuGłównym.NowaGra.name(), obwódkaX+(obwódkaSzer/3) + 10, obwódkaY + 30);
+            płótno.drawString(typAkcjiWMenuGłównym.NowaGra.name(), obwódkaX+(obwódkaSzer/3) + 20, obwódkaY + 30);
             if (czyIstniejePoprzedniaGra) {
-                płótno.drawString(typAkcjiWMenuGłównym.Kontynuuj.name(), obwódkaX + (obwódkaSzer / 3) + 10, obwódkaY + 30 + zaznaczenieWys);
+                płótno.drawString(typAkcjiWMenuGłównym.Kontynuuj.name(), obwódkaX + (obwódkaSzer / 3) + 20, obwódkaY + 30 + zaznaczenieWys);
             }else{
                 płótno.setColor(Color.GRAY);
-                płótno.drawString(typAkcjiWMenuGłównym.Kontynuuj.name(), obwódkaX + (obwódkaSzer / 3) + 10, obwódkaY + 30 + zaznaczenieWys);
+                płótno.drawString(typAkcjiWMenuGłównym.Kontynuuj.name(), obwódkaX + (obwódkaSzer / 3) + 20, obwódkaY + 30 + zaznaczenieWys);
                 płótno.setColor(Color.WHITE);
             }
-            płótno.drawString(typAkcjiWMenuGłównym.Ustawienia.name(), obwódkaX +(obwódkaSzer/3)+ 10, obwódkaY + 30 + zaznaczenieWys * 2);
-            płótno.drawString(typAkcjiWMenuGłównym.Wyjdź.name(), obwódkaX +(obwódkaSzer/3)+ 10, obwódkaY + 30 + zaznaczenieWys * 3);
+            płótno.drawString(typAkcjiWMenuGłównym.Ustawienia.name(), obwódkaX +(obwódkaSzer/3)+ 20, obwódkaY + 30 + zaznaczenieWys * 2);
+            płótno.drawString(typAkcjiWMenuGłównym.Wyjdź.name(), obwódkaX +(obwódkaSzer/3)+ 20, obwódkaY + 30 + zaznaczenieWys * 3);
 
             płótno.drawImage(logo, (ilośćSłupków*rozmiarKafelek-750)/2, (int) (rozmiarKafelek*0.5), null);
+            płótno.drawImage(obwódka, obwódkaX+obwódkaSzer/3-25, obwódkaY-25, null);
         } else if (wybórPodAkcji == -1) {
             switch (wybórAkcji){
                 case 0:
