@@ -5,11 +5,14 @@ import java.awt.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 
 
 public class Interfejs{
 
     public static JFrame okno = new JFrame();
+
+    public static Font Judical;
 
     public static void main(String[] args) throws IOException {
 
@@ -24,7 +27,14 @@ public class Interfejs{
         okno.setTitle("Erpegkraj");
         okno.setUndecorated(true);
 
-
+        InputStream is = Interfejs.class.getResourceAsStream("/czcionka/Judical.ttf");
+        try{
+            Judical = Font.createFont(Font.TRUETYPE_FONT, is);
+        }catch(FontFormatException e){
+            e.printStackTrace();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
 
         PanelGry panelGry = new PanelGry();
         okno.add(panelGry);
@@ -39,5 +49,8 @@ public class Interfejs{
     }
 
     public static void ustawOkno(boolean czyPełnoekranowy){
+    }
+    public static Font ustalCzcionkę(){
+        return Judical.deriveFont(Font.PLAIN, 22.5f);
     }
 }

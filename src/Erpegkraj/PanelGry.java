@@ -35,7 +35,7 @@ public class PanelGry extends JPanel implements Runnable{
 
     ObsługiwaczKlawiszy oKlawiszy = new ObsługiwaczKlawiszy();
     Thread wątekGry;
-    public final Font czcionka = new Font("Judical", Font.PLAIN, 25);
+    public final Font czcionka = Interfejs.ustalCzcionkę();
 
     public ArrayList<Postać> WszyscyMożliwiWrogowie = new ArrayList<Postać>(){{
     }};
