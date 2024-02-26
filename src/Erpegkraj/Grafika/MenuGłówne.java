@@ -154,16 +154,16 @@ public class MenuGłówne extends Menu {
             płótno.fillRect(obwódkaX+(obwódkaSzer/3), zaznaczenieY,obwódkaSzer/3, obwódkaWys/4);
 
             płótno.setColor(Color.WHITE);
-            płótno.drawString(typAkcjiWMenuGłównym.NowaGra.name(), obwódkaX+(obwódkaSzer/3) + 20, obwódkaY + 30);
+            rysujWyśrodkowanąLinijkę(płótno, typAkcjiWMenuGłównym.NowaGra.name(), new Rectangle(obwódkaX+(obwódkaSzer/3), obwódkaY,obwódkaSzer/3, obwódkaWys/4+10) , gp.czcionka);
             if (czyIstniejePoprzedniaGra) {
-                płótno.drawString(typAkcjiWMenuGłównym.Kontynuuj.name(), obwódkaX + (obwódkaSzer / 3) + 20, obwódkaY + 30 + zaznaczenieWys);
+                rysujWyśrodkowanąLinijkę(płótno, typAkcjiWMenuGłównym.Kontynuuj.name(), new Rectangle(obwódkaX+(obwódkaSzer/3), obwódkaY + zaznaczenieWys,obwódkaSzer/3, obwódkaWys/4+10) , gp.czcionka);
             }else{
                 płótno.setColor(Color.GRAY);
-                płótno.drawString(typAkcjiWMenuGłównym.Kontynuuj.name(), obwódkaX + (obwódkaSzer / 3) + 20, obwódkaY + 30 + zaznaczenieWys);
+                rysujWyśrodkowanąLinijkę(płótno, typAkcjiWMenuGłównym.Kontynuuj.name(), new Rectangle(obwódkaX+(obwódkaSzer/3), obwódkaY + zaznaczenieWys,obwódkaSzer/3, obwódkaWys/4+10) , gp.czcionka);
                 płótno.setColor(Color.WHITE);
             }
-            płótno.drawString(typAkcjiWMenuGłównym.Ustawienia.name(), obwódkaX +(obwódkaSzer/3)+ 20, obwódkaY + 30 + zaznaczenieWys * 2);
-            płótno.drawString(typAkcjiWMenuGłównym.Wyjdź.name(), obwódkaX +(obwódkaSzer/3)+ 20, obwódkaY + 30 + zaznaczenieWys * 3);
+            rysujWyśrodkowanąLinijkę(płótno, typAkcjiWMenuGłównym.Ustawienia.name(), new Rectangle(obwódkaX+(obwódkaSzer/3), obwódkaY + zaznaczenieWys*2,obwódkaSzer/3, obwódkaWys/4+10) , gp.czcionka);
+            rysujWyśrodkowanąLinijkę(płótno, typAkcjiWMenuGłównym.Wyjdź.name(), new Rectangle(obwódkaX+(obwódkaSzer/3), obwódkaY + zaznaczenieWys*3,obwódkaSzer/3, obwódkaWys/4+10) , gp.czcionka);
 
             płótno.drawImage(logo, (ilośćSłupków*rozmiarKafelek-750)/2, (int) (rozmiarKafelek*0.5), null);
             płótno.drawImage(obwódka, obwódkaX+obwódkaSzer/3-25, obwódkaY-25, null);
@@ -179,7 +179,7 @@ public class MenuGłówne extends Menu {
                     płótno.fillRect(obwódkaX+(obwódkaSzer/3), rozmiarKafelek*(ilośćRzędów/2-1),obwódkaSzer/3, obwódkaWys/4);
 
                     płótno.setColor(Color.WHITE);
-                    płótno.drawString("Tryb Pełnoekranowy", obwódkaX+(obwódkaSzer/3)+10, rozmiarKafelek*(ilośćRzędów/2-1)+45);
+                    rysujWyśrodkowanąLinijkę(płótno, "Tryb Pełnoekranowy", new Rectangle(obwódkaX+(obwódkaSzer/3), rozmiarKafelek*(ilośćRzędów/2-1)+5,obwódkaSzer/3, obwódkaWys/4), gp.czcionka);
 
                     break;
                 case 2:
@@ -193,8 +193,8 @@ public class MenuGłówne extends Menu {
                     płótno.fillRect(obwódkaX+(obwódkaSzer/3), (int) (rozmiarKafelek*0.5), obwódkaSzer/3, obwódkaWys/3);
 
                     płótno.setColor(Color.WHITE);
-                    płótno.drawString("Wybierz Postać:", obwódkaX+(obwódkaSzer/3)+10, (int) (rozmiarKafelek*0.5) + 50);
-                    płótno.drawString(wybranyBohater.nazwa,obwódkaX+(obwódkaSzer/3)+10, (int) (rozmiarKafelek*1.25) + 75);
+                    rysujWyśrodkowanąLinijkę(płótno, "Wybierz Postać:", new Rectangle(obwódkaX+(obwódkaSzer/3), (int) (rozmiarKafelek*0.5)+10, obwódkaSzer/3, obwódkaWys/3), gp.czcionka);
+                    rysujWyśrodkowanąLinijkę(płótno, wybranyBohater.nazwa, new Rectangle(obwódkaX+(obwódkaSzer/3), (int) (rozmiarKafelek*1.25)+10, obwódkaSzer/3, obwódkaWys/3), gp.czcionka);
 
                     for (int i = 0; i < ilośćBohaterów; i++) {
 

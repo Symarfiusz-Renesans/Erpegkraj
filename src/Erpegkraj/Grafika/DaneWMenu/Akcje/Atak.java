@@ -3,9 +3,9 @@ package Erpegkraj.Grafika.DaneWMenu.Akcje;
 import java.util.HashMap;
 
 public enum Atak {
-    Atakuj(0, "Atakuj", "Podtawowe    Obrażenia."),
-    AtakujZPremią(1, "Atakuj    z    premią", "Większe    Obrażenia!"),
-    AtakSpecjalny(2, "Zdolność    specjalna", "Wielkie    Osiągnięcie...");
+    Atakuj(0, "Atakuj", "Podtawowe Obrażenia."),
+    AtakujZPremią(1, "Atakuj z premią", "Większe Obrażenia!"),
+    AtakSpecjalny(2, "Zdolność specjalna", "Wielkie Osiągnięcie...");
 
     public final int id;
     private final String treść;

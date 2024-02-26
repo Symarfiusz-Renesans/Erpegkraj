@@ -2,8 +2,8 @@ package Erpegkraj.Grafika.DaneWMenu.Akcje;
 
 import java.util.HashMap;
 public enum Obrona {
-    Obrona(0, "Broń    się", "Mniej    Obrażeń."),
-    ObronaZPremią(1, "Broń   się    z    premią", "Jeszcze Mniej    Obrażeń!");
+    Obrona(0, "Broń się", "Mniej Obrażeń."),
+    ObronaZPremią(1, "Broń się z premią", "Jeszcze Mniej Obrażeń!");
 
     public final int id;
     private final String treść;

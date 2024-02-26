@@ -222,7 +222,7 @@ public class MenuWalki extends Menu{
         płótno.drawImage(tło, 0, 0, null);
         if (wrogowie.size() == 0) {
             płótno.setColor(Color.WHITE);
-            płótno.drawString("Wygrałeś!", obwódkaX + obwódkaSzer / 3 + 10, obwódkaY - obwódkaWys / 3 + 50);
+            rysujWyśrodkowanąLinijkę(płótno, "Wygrałeś!", new Rectangle(0,0,rozmiarKafelek*ilośćSłupków, rozmiarKafelek*ilośćRzędów), gp.czcionka);
         } else {
             for(Postać wróg: wrogowie){
                 wróg.ustawPłótno(płótno);
@@ -238,7 +238,7 @@ public class MenuWalki extends Menu{
             płótno.fillRect(obwódkaX + obwódkaSzer / 3, obwódkaY - zaznaczenieWys-15, zaznaczenieSzer, zaznaczenieWys);
             if (wybórCelu != -1) {
                 płótno.setColor(Color.WHITE);
-                płótno.drawString("Runda    wrogów...", obwódkaX + obwódkaSzer / 3 + 10, obwódkaY - obwódkaWys / 3 + 50);
+                rysujWyśrodkowanąLinijkę(płótno, "Runda wrogów...", new Rectangle(obwódkaX + obwódkaSzer / 3, obwódkaY - zaznaczenieWys-10, zaznaczenieSzer, zaznaczenieWys), gp.czcionka);
             } else if (wybórAkcji != -1) {
                 Postać wróg = wrogowie.get(poziomCEL);
                 if (wróg.czyCzasMigania == 0) {
@@ -248,7 +248,7 @@ public class MenuWalki extends Menu{
 
                 płótno.setColor(Color.WHITE);
 
-                płótno.drawString("Wybierz    cel:", obwódkaX + obwódkaSzer / 3 + 10, obwódkaY - obwódkaWys / 3 + 50);
+                rysujWyśrodkowanąLinijkę(płótno, "Wybierz cel:", new Rectangle(obwódkaX + obwódkaSzer / 3, obwódkaY - zaznaczenieWys-10, zaznaczenieSzer, zaznaczenieWys), gp.czcionka);
 
             } else if (wybórTypuAkcji != -1) {
                 płótno.setColor(Color.RED);
@@ -261,26 +261,25 @@ public class MenuWalki extends Menu{
                     }
                     case 1: {
                         for (Jednorazówki j : bohater.ekwipunek) {
-                            płótno.drawString(j.nazwa, obwódkaX + (obwódkaSzer / 3) + 10, obwódkaY + (zaznaczenieWys * (ilośćPoziomów - 3) * (-1) + 30));
+                            rysujWyśrodkowanąLinijkę(płótno, j.nazwa, new Rectangle(obwódkaX + (obwódkaSzer / 3), obwódkaY + (zaznaczenieWys * (ilośćPoziomów - 3) * (-1)), zaznaczenieSzer, zaznaczenieWys), gp.czcionka);
                             ilośćPoziomów--;
                         }
-                        płótno.drawString(String.valueOf(Obrona.ustalOpis((poziom - 3) * (-1))), obwódkaX + obwódkaSzer / 3 + 10, obwódkaY - obwódkaWys / 3 + 50);
                         break;
                     }
                     case 2: {
                         for (Obrona obrona : Obrona.values()) {
-                            płótno.drawString(obrona.ustalTreść((ilośćPoziomów - 3) * (-1)), obwódkaX + (obwódkaSzer / 3) + 10, obwódkaY + (zaznaczenieWys * (ilośćPoziomów - 3) * (-1) + 30));
+                            rysujWyśrodkowanąLinijkę(płótno, obrona.ustalTreść((ilośćPoziomów - 3) * (-1)), new Rectangle(obwódkaX + (obwódkaSzer / 3), obwódkaY + (zaznaczenieWys * (ilośćPoziomów - 3) * (-1)), zaznaczenieSzer, zaznaczenieWys), gp.czcionka);
                             ilośćPoziomów--;
                         }
-                        płótno.drawString(String.valueOf(Obrona.ustalOpis((poziom - 3) * (-1))), obwódkaX + obwódkaSzer / 3 + 10, obwódkaY - obwódkaWys / 3 + 50);
+                        rysujWyśrodkowanąLinijkę(płótno, String.valueOf(Obrona.ustalOpis((poziom - 3) * (-1))), new Rectangle(obwódkaX + obwódkaSzer / 3, obwódkaY - zaznaczenieWys-10, zaznaczenieSzer, zaznaczenieWys), gp.czcionka);
                         break;
                     }
                     case 3: {
                         for (Atak atak : Atak.values()) {
-                            płótno.drawString(atak.ustalTreść((ilośćPoziomów - 3) * (-1)), obwódkaX + (obwódkaSzer / 3) + 10, obwódkaY + (zaznaczenieWys * (ilośćPoziomów - 3) * (-1) + 30));
+                            rysujWyśrodkowanąLinijkę(płótno, atak.ustalTreść((ilośćPoziomów - 3) * (-1)), new Rectangle(obwódkaX + (obwódkaSzer / 3), obwódkaY + (zaznaczenieWys * (ilośćPoziomów - 3) * (-1)), zaznaczenieSzer, zaznaczenieWys), gp.czcionka);
                             ilośćPoziomów--;
                         }
-                        płótno.drawString(String.valueOf(Atak.ustalOpis((poziom - 3) * (-1))), obwódkaX + obwódkaSzer / 3 + 10, obwódkaY - obwódkaWys / 3 + 50);
+                        rysujWyśrodkowanąLinijkę(płótno, String.valueOf(Atak.ustalOpis((poziom - 3) * (-1))), new Rectangle(obwódkaX + obwódkaSzer / 3, obwódkaY - zaznaczenieWys-10, zaznaczenieSzer, zaznaczenieWys), gp.czcionka);
                         break;
                     }
                 }
@@ -293,19 +292,19 @@ public class MenuWalki extends Menu{
                 ilośćPoziomów = 0;
                 switch (poziom) {
                     case 3: {
-                        płótno.drawString(String.valueOf(typAkcjiWMenuWalki.ustalEnumaPrzezId(3)), obwódkaX + obwódkaSzer / 3 + 10, obwódkaY - obwódkaWys / 3 + 50);
+                        rysujWyśrodkowanąLinijkę(płótno, String.valueOf(typAkcjiWMenuWalki.ustalEnumaPrzezId(3)), new Rectangle(obwódkaX + obwódkaSzer / 3, obwódkaY - zaznaczenieWys-10, zaznaczenieSzer, zaznaczenieWys), gp.czcionka);
                         break;
                     }
                     case 2: {
-                        płótno.drawString(typAkcjiWMenuWalki.ustalEnumaPrzezId(2), obwódkaX + obwódkaSzer / 3 + 10, obwódkaY - obwódkaWys / 3 + 50);
+                        rysujWyśrodkowanąLinijkę(płótno, String.valueOf(typAkcjiWMenuWalki.ustalEnumaPrzezId(2)), new Rectangle(obwódkaX + obwódkaSzer / 3, obwódkaY - zaznaczenieWys-10, zaznaczenieSzer, zaznaczenieWys), gp.czcionka);
                         break;
                     }
                     case 1: {
-                        płótno.drawString(typAkcjiWMenuWalki.ustalEnumaPrzezId(1), obwódkaX + obwódkaSzer / 3 + 10, obwódkaY - obwódkaWys / 3 + 50);
+                        rysujWyśrodkowanąLinijkę(płótno, String.valueOf(typAkcjiWMenuWalki.ustalEnumaPrzezId(1)), new Rectangle(obwódkaX + obwódkaSzer / 3, obwódkaY - zaznaczenieWys-10, zaznaczenieSzer, zaznaczenieWys), gp.czcionka);
                         break;
                     }
                     case 0: {
-                        płótno.drawString(typAkcjiWMenuWalki.ustalEnumaPrzezId(0), obwódkaX + obwódkaSzer / 3 + 10, obwódkaY - obwódkaWys / 3 + 50);
+                        rysujWyśrodkowanąLinijkę(płótno, String.valueOf(typAkcjiWMenuWalki.ustalEnumaPrzezId(0)), new Rectangle(obwódkaX + obwódkaSzer / 3, obwódkaY - zaznaczenieWys-10, zaznaczenieSzer, zaznaczenieWys), gp.czcionka);
                         break;
                     }
                 }
@@ -314,10 +313,10 @@ public class MenuWalki extends Menu{
 
             płótno.setFont(gp.czcionka);
             płótno.setColor(Color.WHITE);
-            płótno.drawString(typAkcjiWMenuWalki.Atakuj.name(), obwódkaX + 10, obwódkaY + 30);
-            płótno.drawString(typAkcjiWMenuWalki.BrońSię.name(), obwódkaX + 10, obwódkaY + 30 + zaznaczenieWys);
-            płótno.drawString(typAkcjiWMenuWalki.Ekwipunek.name(), obwódkaX + 10, obwódkaY + 30 + zaznaczenieWys * 2);
-            płótno.drawString(typAkcjiWMenuWalki.Uciekaj.name(), obwódkaX + 10, obwódkaY + 30 + zaznaczenieWys * 3);
+            rysujWyśrodkowanąLinijkę(płótno, typAkcjiWMenuWalki.Atakuj.name(), new Rectangle(obwódkaX, obwódkaY, zaznaczenieSzer, zaznaczenieWys+10), gp.czcionka);
+            rysujWyśrodkowanąLinijkę(płótno, typAkcjiWMenuWalki.BrońSię.name(), new Rectangle(obwódkaX, obwódkaY + zaznaczenieWys, zaznaczenieSzer, zaznaczenieWys+10), gp.czcionka);
+            rysujWyśrodkowanąLinijkę(płótno, typAkcjiWMenuWalki.Ekwipunek.name(), new Rectangle(obwódkaX, obwódkaY + zaznaczenieWys*2, zaznaczenieSzer, zaznaczenieWys+10), gp.czcionka);
+            rysujWyśrodkowanąLinijkę(płótno, typAkcjiWMenuWalki.Uciekaj.name(), new Rectangle(obwódkaX, obwódkaY + zaznaczenieWys*3, zaznaczenieSzer, zaznaczenieWys+10), gp.czcionka);
 
             płótno.drawImage(obwódka, obwódkaX-25, obwódkaY-80, null);
 

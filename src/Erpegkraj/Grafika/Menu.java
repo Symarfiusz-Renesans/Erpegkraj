@@ -50,4 +50,17 @@ public abstract class Menu extends Grafika{
     public abstract void stwórzMenu(Graphics2D płótno);
 
     protected abstract void ustalPołożenieZaznaczenia();
+
+    public void rysujWyśrodkowanąLinijkę(Graphics płótno, String pismo, Rectangle prostokąt, Font czcionka) {
+        // Get the FontMetrics
+        FontMetrics metryka = płótno.getFontMetrics(czcionka);
+        // Determine the X coordinate for the text
+        int x = prostokąt.x + (prostokąt.width - metryka.stringWidth(pismo)) / 2;
+        // Determine the Y coordinate for the text (note we add the ascent, as in java 2d 0 is top of the screen)
+        int y = prostokąt.y + ((prostokąt.height - metryka.getHeight()) / 2) + metryka.getAscent();
+        // Set the font
+        płótno.setFont(czcionka);
+        // Draw the String
+        płótno.drawString(pismo, x, y);
+    }
 }

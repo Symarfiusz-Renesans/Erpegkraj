@@ -5,10 +5,10 @@ import Erpegkraj.ZarządcaEnumów;
 import java.util.HashMap;
 
 public enum typAkcjiWMenuWalki implements ZarządcaEnumów {
-    Atakuj(3,"By    zabolało!"),
-    BrońSię(2, "By    nie    zabolało!"),
-    Ekwipunek(1, "Pomoc    w    Walce"),
-    Uciekaj(0, "Droga    hańby...");
+    Atakuj(3,"By zabolało!"),
+    BrońSię(2, "By nie zabolało!"),
+    Ekwipunek(1, "Pomoc w Walce"),
+    Uciekaj(0, "Droga hańby...");
 
     private final int id;
     private final String opis;
