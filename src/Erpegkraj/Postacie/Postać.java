@@ -182,14 +182,14 @@ public abstract class Postać extends Erpegkraj.Grafika.Grafika implements Przer
         widoczny = !widoczny;
     }
     private boolean czyUniknieObrażeń(){
-        int losowaLiczba = (int)(Math.random()*30+1);
-        return ((losowaLiczba - unikUlep) <= 0);
+        int losowaLiczba = (int)(Math.random()*50+1);
+        return ((unikUlep - losowaLiczba) >= 0);
     }
     private int efetkywnośćObrony(){
-        double losowaLiczba = Math.random()*odpornośćUlep;
+        double losowaLiczba = Math.random()*odpornośćUlep/2;
 
         System.out.println("Losowa: "+losowaLiczba);
-        return (int)(losowaLiczba*5);
+        return (int)(losowaLiczba);
     }
 
     @Override
