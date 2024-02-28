@@ -433,7 +433,7 @@ public class MenuWalki extends Menu{
             mapa.setValue(mapa.getValue()-1);
         }
 
-
+        ustalPołożenieZaznaczenia();
 
 
     }
