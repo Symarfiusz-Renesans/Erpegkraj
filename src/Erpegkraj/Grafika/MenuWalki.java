@@ -251,7 +251,16 @@ public class MenuWalki extends Menu{
 
                 płótno.setColor(Color.WHITE);
 
-                rysujWyśrodkowanąLinijkę(płótno, "Wybierz cel:", new Rectangle(obwódkaX + obwódkaSzer / 3, obwódkaY - zaznaczenieWys-10, zaznaczenieSzer, zaznaczenieWys), gp.czcionka);
+                rysujWyśrodkowanąLinijkę(płótno, wrogowie.get(poziomCEL).nazwa, new Rectangle(obwódkaX + obwódkaSzer / 3, obwódkaY - zaznaczenieWys-10, zaznaczenieSzer, zaznaczenieWys), gp.czcionka);
+
+                rysujWyśrodkowanąLinijkę(płótno, "Siła: "+wrogowie.get(poziomCEL).siła, new Rectangle(obwódkaX + obwódkaSzer / 3, obwódkaY, zaznaczenieSzer, zaznaczenieWys+10), gp.czcionka);
+                rysujWyśrodkowanąLinijkę(płótno, "Odporność: "+wrogowie.get(poziomCEL).odporność, new Rectangle(obwódkaX + obwódkaSzer / 3, obwódkaY + zaznaczenieWys, zaznaczenieSzer, zaznaczenieWys+10), gp.czcionka);
+                rysujWyśrodkowanąLinijkę(płótno, "Unik: "+wrogowie.get(poziomCEL).unik, new Rectangle(obwódkaX + obwódkaSzer / 3, obwódkaY + zaznaczenieWys*2, zaznaczenieSzer, zaznaczenieWys+10), gp.czcionka);
+
+                rysujWyśrodkowanąLinijkę(płótno, "Zd. Pasywna: ", new Rectangle(obwódkaX + obwódkaSzer / 3 * 2, obwódkaY, zaznaczenieSzer, zaznaczenieWys+10), gp.czcionka);
+                rysujWyśrodkowanąLinijkę(płótno, "<Zostanie dodane>", new Rectangle(obwódkaX + obwódkaSzer / 3 * 2, obwódkaY + zaznaczenieWys, zaznaczenieSzer, zaznaczenieWys+10), gp.czcionka);
+                rysujWyśrodkowanąLinijkę(płótno, "Zd. Wyjątkowa: ", new Rectangle(obwódkaX + obwódkaSzer / 3 * 2, obwódkaY + zaznaczenieWys*2, zaznaczenieSzer, zaznaczenieWys+10), gp.czcionka);
+                rysujWyśrodkowanąLinijkę(płótno, "<wkrótce>", new Rectangle(obwódkaX + obwódkaSzer / 3 * 2, obwódkaY + zaznaczenieWys*3, zaznaczenieSzer, zaznaczenieWys+10), gp.czcionka);
 
             } else if (wybórTypuAkcji != -1) {
                 płótno.setColor(Color.RED);

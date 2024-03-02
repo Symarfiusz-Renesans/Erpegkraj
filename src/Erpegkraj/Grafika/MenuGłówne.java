@@ -180,7 +180,7 @@ public class MenuGłówne extends Menu {
 
                     płótno.setColor(Color.WHITE);
                     rysujWyśrodkowanąLinijkę(płótno, "Tryb Pełnoekranowy", new Rectangle(obwódkaX+(obwódkaSzer/3), rozmiarKafelek*(ilośćRzędów/2-1)+5,obwódkaSzer/3, obwódkaWys/4), gp.czcionka);
-
+                    rysujWyśrodkowanąLinijkę(płótno, "<Zostanie dodane wkrótce>", new Rectangle(obwódkaX+(obwódkaSzer/3), rozmiarKafelek*(ilośćRzędów/2)-5,obwódkaSzer/3, obwódkaWys/4), gp.czcionka);
                     break;
                 case 2:
 
