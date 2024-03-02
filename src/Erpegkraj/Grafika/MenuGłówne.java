@@ -249,6 +249,6 @@ public class MenuGłówne extends Menu {
     }
 
     protected boolean czyIstniejePoprzedniaGra(){
-        return new File("zasoby/poprzedniaRozgrywka").list().length != 0;
+        return false;
     }
 }
