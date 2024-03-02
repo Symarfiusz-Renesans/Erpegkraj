@@ -53,6 +53,7 @@ public class MenuWalki extends Menu{
 
         for (Jednorazówki j: jednorazówki){
             j.ustawBohatera(bohater);
+            bohater.ekwipunek.add(j);
             j.ustawWrogów(wrogowie);
         }
 
@@ -166,7 +167,6 @@ public class MenuWalki extends Menu{
             if (miejsce.ustalId() < 3) {
                 //System.out.println( PołożenieWMenu.valueOf( miejsce.ustalEnumaPrzezId( miejsce.ustalId() + 1) ) );
                 miejsce = miejsce.valueOf( miejsce.ustalEnumaPrzezId( miejsce.ustalId() + 1));
-                poziomCEL = ilośćWrogów-1;
                 wrogowie.get(poziomCEL).widoczny =true;
                 ustalPołożenieZaznaczenia();
                 statut[0] = "przesunięto";
@@ -223,6 +223,9 @@ public class MenuWalki extends Menu{
         if (wrogowie.size() == 0) {
             płótno.setColor(Color.WHITE);
             rysujWyśrodkowanąLinijkę(płótno, "Wygrałeś!", new Rectangle(0,0,rozmiarKafelek*ilośćSłupków, rozmiarKafelek*ilośćRzędów), gp.czcionka);
+        } else if(bohater.wartośćAlfa == 0){
+            płótno.setColor(Color.WHITE);
+            rysujWyśrodkowanąLinijkę(płótno, "Przegrałeś...", new Rectangle(0,0,rozmiarKafelek*ilośćSłupków, rozmiarKafelek*ilośćRzędów), gp.czcionka);
         } else {
             for(Postać wróg: wrogowie){
                 wróg.ustawPłótno(płótno);
@@ -388,6 +391,7 @@ public class MenuWalki extends Menu{
                 if (miejsce != PołożenieWMenuWalki.Akcja) break;
             }
             case Akcja:{
+                System.out.println(poziomCEL);
                 wybórTypuAkcji = 3;
                 wybórAkcji = 0;
                 wybórCelu = poziomCEL;
