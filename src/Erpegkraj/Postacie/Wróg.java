@@ -7,6 +7,7 @@ import Erpegkraj.ZarządcaArkuszów;
 import javax.imageio.ImageIO;
 import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -15,14 +16,14 @@ import java.util.Map;
 
 public class Wróg extends Postać implements ZarządcaArkuszów {
 
-    protected FileInputStream daneWroga;
+    protected File daneWroga;
 
     public Wróg(String nazwa,int miejsce, int rozmiar, int x, int y, PanelGry gp){
         super(rozmiar, x, y, gp, 0, 160, 155, 175);
         postaćX = ustawPołożenieX(miejsce, x, rozmiar);
 
         try {
-            daneWroga = new FileInputStream("zasoby/Dane/Dane.xlsx");
+            daneWroga = new File("zasoby/Dane/Dane.xlsx");
             HashMap<String, String> mapa= ZarządcaArkuszów.podzielDane(ZarządcaArkuszów.przeczytajWierszArkusza(daneWroga, "Wrogowie", nazwa));
             przydzielDane(mapa);
         } catch (FileNotFoundException e) {
@@ -77,19 +78,19 @@ public class Wróg extends Postać implements ZarządcaArkuszów {
                     break;
                 }
                 case "RysDomyślny1":{
-                    rysy.replace("d1",ImageIO.read(getClass().getResourceAsStream("/Rysy/"+mapa.get(klucz))));
+                    rysy.replace("d1",ImageIO.read(getClass().getResourceAsStream("/Rysy"+mapa.get(klucz))));
                     break;
                 }
                 case "RysDomyślny2":{
-                    rysy.replace("d2",ImageIO.read(getClass().getResourceAsStream("/Rysy/"+mapa.get(klucz))));
+                    rysy.replace("d2",ImageIO.read(getClass().getResourceAsStream("/Rysy"+mapa.get(klucz))));
                     break;
                 }
                 case "RysAtaku1":{
-                    rysy.replace("a1",ImageIO.read(getClass().getResourceAsStream("/Rysy/"+mapa.get(klucz))));
+                    rysy.replace("a1",ImageIO.read(getClass().getResourceAsStream("/Rysy"+mapa.get(klucz))));
                     break;
                 }
                 case "RysAtaku2":{
-                    rysy.replace("a2",ImageIO.read(getClass().getResourceAsStream("/Rysy/"+mapa.get(klucz))));
+                    rysy.replace("a2",ImageIO.read(getClass().getResourceAsStream("/Rysy"+mapa.get(klucz))));
                     break;
                 }
             }

@@ -10,11 +10,11 @@ import java.util.Map;
 public class nowychPlikówTworzenie {
 
     public static void main(String[] args) throws IOException {
-        FileInputStream danePrzedmiotów;
+        File danePrzedmiotów;
         HashMap<String,HashMap<String, String>> mapa;
 
         try {
-            danePrzedmiotów = new FileInputStream("zasoby/Dane/Dane.xlsx");
+            danePrzedmiotów = new File("/Dane/Dane.xlsx");
             mapa= ZarządcaArkuszów.podzielDaneRóżnychWierszy(ZarządcaArkuszów.przeczytajWierszeArkusza(danePrzedmiotów, "Jednorazówki"));
             przydzielWieleDanychJednorazówek(mapa);
         } catch (IOException e) {
@@ -22,7 +22,7 @@ public class nowychPlikówTworzenie {
         }
 
         try {
-            danePrzedmiotów = new FileInputStream("zasoby/Dane/Dane.xlsx");
+            danePrzedmiotów = new File("/Dane/Dane.xlsx");
             mapa= ZarządcaArkuszów.podzielDaneRóżnychWierszy(ZarządcaArkuszów.przeczytajWierszeArkusza(danePrzedmiotów, "EfektyBitwy"));
             przydzielWieleDanychEfektów(mapa);
         } catch (IOException e) {
@@ -30,7 +30,7 @@ public class nowychPlikówTworzenie {
         }
 
         try {
-            danePrzedmiotów = new FileInputStream("zasoby/Dane/Dane.xlsx");
+            danePrzedmiotów = new File("/Dane/Dane.xlsx");
             mapa= ZarządcaArkuszów.podzielDaneRóżnychWierszy(ZarządcaArkuszów.przeczytajWierszeArkusza(danePrzedmiotów, "Bohaterowie"));
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -75,7 +75,7 @@ public class nowychPlikówTworzenie {
         }
     }
 
-    public static void przydzielWieleDanychBohaterów(HashMap<String,HashMap<String, String>> mapa, FileInputStream danePrzedmiotów) throws IOException {
+    public static void przydzielWieleDanychBohaterów(HashMap<String,HashMap<String, String>> mapa, File danePrzedmiotów) throws IOException {
         int i = 0;
         String kodEnuma = "package Erpegkraj.Grafika.DaneWMenu;\n" +
                 "\n" +

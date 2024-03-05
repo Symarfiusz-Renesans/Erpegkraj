@@ -7,8 +7,10 @@ import Erpegkraj.Uzbrojenie.typyUzbrojenia;
 import Erpegkraj.ZarządcaArkuszów;
 
 import javax.imageio.ImageIO;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,7 +24,7 @@ public abstract class Bohater extends Postać implements ZarządcaArkuszów{
     protected int[] położeniePostaciWMenuWalki = {150,160};
     protected int[] położeniePostaciWMenuGłównym = {525, 250};
 
-    protected FileInputStream daneBohatera = new FileInputStream("zasoby/Dane/Dane.xlsx");
+    protected File daneBohatera = new File("zasoby/Dane/Dane.xlsx");
 
     ArrayList<typyUzbrojenia> typyUzbrojenia = new ArrayList<typyUzbrojenia>(4);
     ArrayList<Uzbrojenie> uzbrojenie = new ArrayList<Uzbrojenie>(4);
@@ -90,7 +92,6 @@ public abstract class Bohater extends Postać implements ZarządcaArkuszów{
 
     @Override
     public void przydzielDane(HashMap<String, String> mapa) throws IOException {
-        System.out.println(mapa);
         for (Map.Entry<String, String> entry : mapa.entrySet()) {
             String klucz = entry.getKey();
             switch(klucz){
@@ -123,19 +124,19 @@ public abstract class Bohater extends Postać implements ZarządcaArkuszów{
                     break;
                 }
                 case "RysDomyślny1":{
-                    rysy.replace("d1",ImageIO.read(getClass().getResourceAsStream("/Rysy/"+mapa.get(klucz))));
+                    rysy.replace("d1",ImageIO.read(Bohater.class.getResourceAsStream("/Rysy"+mapa.get(klucz))));
                     break;
                 }
                 case "RysDomyślny2":{
-                    rysy.replace("d2",ImageIO.read(getClass().getResourceAsStream("/Rysy/"+mapa.get(klucz))));
+                    rysy.replace("d2",ImageIO.read(Bohater.class.getResourceAsStream("/Rysy"+mapa.get(klucz))));
                     break;
                 }
                 case "RysAtaku1":{
-                    rysy.replace("a1",ImageIO.read(getClass().getResourceAsStream("/Rysy/"+mapa.get(klucz))));
+                    rysy.replace("a1",ImageIO.read(Bohater.class.getResourceAsStream("/Rysy"+mapa.get(klucz))));
                     break;
                 }
                 case "RysAtaku2":{
-                    rysy.replace("a2",ImageIO.read(getClass().getResourceAsStream("/Rysy/"+mapa.get(klucz))));
+                    rysy.replace("a2",ImageIO.read(Bohater.class.getResourceAsStream("/Rysy"+mapa.get(klucz))));
                     break;
                 }
                 case "TypUzbrojenia1", "TypUzbrojenia2", "TypUzbrojenia3", "TypUzbrojenia4":{

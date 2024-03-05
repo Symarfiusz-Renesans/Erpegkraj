@@ -1,8 +1,12 @@
 package Erpegkraj;
 
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -12,9 +16,14 @@ import java.util.Objects;
 
 public interface ZarządcaArkuszów {
 
-    public static String przeczytajWierszArkusza(FileInputStream ścieżkaArkusza,String nazwaArkusza, String nazwa) throws IOException {
+    public static String przeczytajWierszArkusza(File ścieżkaArkusza, String nazwaArkusza, String nazwa) throws IOException {
         String tekst = "";
-        Workbook notatnik = WorkbookFactory.create(ścieżkaArkusza);
+        Workbook notatnik = null;//WorkbookFactory.create(ścieżkaArkusza);
+        try {
+            notatnik = new XSSFWorkbook(OPCPackage.open(ścieżkaArkusza));
+        } catch (InvalidFormatException e) {
+            throw new RuntimeException(e);
+        }
         Sheet arkusz = notatnik.getSheet(nazwaArkusza);
 
         for(Row r: arkusz){
@@ -34,7 +43,7 @@ public interface ZarządcaArkuszów {
         notatnik.close();
         return tekst;
     }
-    public static String przeczytajWierszeArkusza(FileInputStream ścieżkaArkusza,String nazwaArkusza) throws IOException {
+    public static String przeczytajWierszeArkusza(File ścieżkaArkusza,String nazwaArkusza) throws IOException {
         String tekst = "";
         Workbook notatnik = WorkbookFactory.create(ścieżkaArkusza);
         Sheet arkusz = notatnik.getSheet(nazwaArkusza);

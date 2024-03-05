@@ -3,6 +3,7 @@ package Erpegkraj.Uzbrojenie;
 import Erpegkraj.Postacie.Bohater;
 import Erpegkraj.ZarządcaArkuszów;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -16,13 +17,13 @@ public class Uzbrojenie implements ZarządcaArkuszów{
     protected int siłaUlepszenia;
     public int premia;
 
-    protected FileInputStream daneBohatera;
+    protected File daneBohatera;
 
     public Uzbrojenie(String nazwa){
         this.nazwa = nazwa;
 
         try {
-            daneBohatera = new FileInputStream("zasoby/Dane/Dane.xlsx");
+            daneBohatera = new File("zasoby/Dane/Dane.xlsx");
             HashMap<String, String> mapa= ZarządcaArkuszów.podzielDane(ZarządcaArkuszów.przeczytajWierszArkusza(daneBohatera, "Uzbrojenie", nazwa));
             przydzielDane(mapa);
         } catch (FileNotFoundException e) {
