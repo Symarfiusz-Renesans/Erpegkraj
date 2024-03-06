@@ -18,9 +18,11 @@ public interface ZarządcaArkuszów {
 
     public static String przeczytajWierszArkusza(File ścieżkaArkusza, String nazwaArkusza, String nazwa) throws IOException {
         String tekst = "";
-        Workbook notatnik = null;//WorkbookFactory.create(ścieżkaArkusza);
+        OPCPackage paczka;
+        Workbook notatnik;
         try {
-            notatnik = new XSSFWorkbook(OPCPackage.open(ścieżkaArkusza));
+            paczka = OPCPackage.open(ścieżkaArkusza);
+            notatnik = new XSSFWorkbook(paczka);
         } catch (InvalidFormatException e) {
             throw new RuntimeException(e);
         }
@@ -41,6 +43,7 @@ public interface ZarządcaArkuszów {
             if (Objects.equals(wartość, "")) break;
         }
         notatnik.close();
+        paczka.close();
         return tekst;
     }
     public static String przeczytajWierszeArkusza(File ścieżkaArkusza,String nazwaArkusza) throws IOException {
