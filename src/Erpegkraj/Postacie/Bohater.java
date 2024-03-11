@@ -24,7 +24,7 @@ public abstract class Bohater extends Postać implements ZarządcaArkuszów{
     protected int[] położeniePostaciWMenuWalki = {150,160};
     protected int[] położeniePostaciWMenuGłównym = {525, 250};
 
-    protected File daneBohatera = new File("zasoby/Dane/Dane.xlsx");
+    protected File daneBohatera;
 
     ArrayList<typyUzbrojenia> typyUzbrojenia = new ArrayList<typyUzbrojenia>(4);
     ArrayList<Uzbrojenie> uzbrojenie = new ArrayList<Uzbrojenie>(4);
@@ -35,8 +35,12 @@ public abstract class Bohater extends Postać implements ZarządcaArkuszów{
     public Bohater(String nazwa,int rozmiar, int x, int y, PanelGry gp) throws IOException {
         super(rozmiar,0,0, gp, x, y, 155, 175);
         this.skupienie = 0;
-
-        przydzielDane(ZarządcaArkuszów.podzielDane(ZarządcaArkuszów.przeczytajWierszArkusza(daneBohatera, "Bohaterowie", nazwa)));
+        try {
+            daneBohatera = new File(Objects.requireNonNull(getClass().getResource("/zasoby/Dane/Dane.xlsx")).getFile());
+            przydzielDane(ZarządcaArkuszów.podzielDane(ZarządcaArkuszów.przeczytajWierszArkusza(daneBohatera, "Bohaterowie", nazwa)));
+        } catch(NullPointerException | ExceptionInInitializerError e) {
+            System.out.println(e);
+        }
 
         /*ekwipunek.add(gp.wszytkieMożliwePrzedmioty.get(1));
         ekwipunek.add(gp.wszytkieMożliwePrzedmioty.get(1));

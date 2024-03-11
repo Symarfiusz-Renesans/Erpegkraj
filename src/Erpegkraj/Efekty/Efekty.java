@@ -8,6 +8,7 @@ import Erpegkraj.Postacie.Postać;
 import Erpegkraj.ZarządcaArkuszów;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -15,8 +16,6 @@ import java.nio.Buffer;
 import java.util.ArrayList;
 
 public abstract class Efekty extends Erpegkraj.Grafika.Grafika {
-
-    protected FileInputStream daneEfektów = new FileInputStream("zasoby/Dane/Dane.xlsx");
     public String nazwa;
     protected Postać postać;
     public BufferedImage ikona;

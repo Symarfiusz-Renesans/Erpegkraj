@@ -23,7 +23,7 @@ public class Uzbrojenie implements ZarządcaArkuszów{
         this.nazwa = nazwa;
 
         try {
-            daneBohatera = new File("zasoby/Dane/Dane.xlsx");
+            daneBohatera = new File(getClass().getResource("/zasoby/Dane/Dane.xlsx").getFile());
             HashMap<String, String> mapa= ZarządcaArkuszów.podzielDane(ZarządcaArkuszów.przeczytajWierszArkusza(daneBohatera, "Uzbrojenie", nazwa));
             przydzielDane(mapa);
         } catch (FileNotFoundException e) {

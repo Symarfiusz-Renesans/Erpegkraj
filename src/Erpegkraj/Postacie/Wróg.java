@@ -23,7 +23,7 @@ public class Wróg extends Postać implements ZarządcaArkuszów {
         postaćX = ustawPołożenieX(miejsce, x, rozmiar);
 
         try {
-            daneWroga = new File("zasoby/Dane/Dane.xlsx");
+            daneWroga = new File(getClass().getResource("/zasoby/Dane/Dane.xlsx").getFile());
             HashMap<String, String> mapa= ZarządcaArkuszów.podzielDane(ZarządcaArkuszów.przeczytajWierszArkusza(daneWroga, "Wrogowie", nazwa));
             przydzielDane(mapa);
         } catch (FileNotFoundException e) {
